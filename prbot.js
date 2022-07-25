@@ -100,11 +100,15 @@ Tone.Transport.loopEnd = "8m";
 
 var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 
-let player = new Tone.Player(mp3, ()=> {
- document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-  document.querySelector('#loading').textContent = '';
-  document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+const player = new Tone.Player({
+    url: mp3,
+    loop: true
 }).toDestination().sync().start(0);
+// let player = new Tone.Player(mp3, ()=> {
+//  document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+//   document.querySelector('#loading').textContent = '';
+//   document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+// }).toDestination().sync().start(0);
 let player2 = new Tone.Player(mp3, ()=> {
 document.querySelectorAll('button').forEach((e)=>e.disabled = false)
   document.querySelector('#loading2').textContent = '';

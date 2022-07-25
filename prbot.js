@@ -363,10 +363,8 @@ setInterval(() => {
     // document.querySelector('#column3').style.backgroundColor = `hsl(${colorAccentHue3}, ${sVal3}%, ${lVal3}%)`
     // document.querySelector('#column4').style.backgroundColor = `hsl(${colorAccentHue4}, ${sVal4}%, ${lVal4}%)`
 
-	console.log(Tone.Transport.position);
-    console.log(Tone.Transport.progress);
-	console.log(Tone.Transport.seconds);    
-    console.log(Tone.Transport);
+
+    console.log(Tone.Transport.state);
 
     // console.log(player.position);
     // console.log(buffer);

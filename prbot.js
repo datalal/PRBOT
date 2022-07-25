@@ -158,8 +158,8 @@ document.querySelector('#start4').addEventListener('click', ()=> {
     player4.start()});
 
 // connect the UI with the components
-document.querySelector("transportPlay").addEventListener("start", () => Tone.Transport.start());
-document.querySelector("transportStop").addEventListener("stop", () => Tone.Transport.stop());
+document.querySelector("tone-play-toggle").addEventListener("start", () => Tone.Transport.start());
+document.querySelector("tone-play-toggle").addEventListener("stop", () => Tone.Transport.stop());
 
 // document.querySelector('#start2').addEventListener('click', ()=> player2.start());
 

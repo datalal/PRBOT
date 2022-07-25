@@ -334,47 +334,54 @@ var lVal2 = 20;
 var lVal3 = 20;
 var lVal4 = 20;
 
-setInterval(() => {
-    // let colorAccentHue = "240";
-    lVal1 = lVal1 + 2;
-    lVal2 = lVal2 + 2;
-    lVal3 = lVal3 + 2;
-    lVal4 = lVal4 + 2;
+// setInterval(() => {
+//     // let colorAccentHue = "240";
+//     lVal1 = lVal1 + 2;
+//     lVal2 = lVal2 + 2;
+//     lVal3 = lVal3 + 2;
+//     lVal4 = lVal4 + 2;
 
-    if(lVal1 > 55){
-        lVal1 = 20;
-    }
+//     if(lVal1 > 55){
+//         lVal1 = 20;
+//     }
 
-    if(lVal2 > 55){
-        lVal2 = 20;
-    }
+//     if(lVal2 > 55){
+//         lVal2 = 20;
+//     }
 
-    if(lVal3 > 55){
-        lVal3 = 20;
-    }
+//     if(lVal3 > 55){
+//         lVal3 = 20;
+//     }
 
-    if(lVal4 > 55){
-        lVal4 = 20;
-    }
-
-
-    // document.querySelector('#column1').style.backgroundColor = `hsl(${colorAccentHue1}, ${sVal1}%, ${lVal1}%)`
-    // document.querySelector('#column2').style.backgroundColor = `hsl(${colorAccentHue2}, ${sVal2}%, ${lVal2}%)`
-    // document.querySelector('#column3').style.backgroundColor = `hsl(${colorAccentHue3}, ${sVal3}%, ${lVal3}%)`
-    // document.querySelector('#column4').style.backgroundColor = `hsl(${colorAccentHue4}, ${sVal4}%, ${lVal4}%)`
+//     if(lVal4 > 55){
+//         lVal4 = 20;
+//     }
 
 
-    console.log("blockTime: ", Tone.Destination.blockTime);
-    console.log("progress", Tone.Transport.progress);
-    console.log("sampleTime", Tone.Transport.sampleTime);
+//     // document.querySelector('#column1').style.backgroundColor = `hsl(${colorAccentHue1}, ${sVal1}%, ${lVal1}%)`
+//     // document.querySelector('#column2').style.backgroundColor = `hsl(${colorAccentHue2}, ${sVal2}%, ${lVal2}%)`
+//     // document.querySelector('#column3').style.backgroundColor = `hsl(${colorAccentHue3}, ${sVal3}%, ${lVal3}%)`
+//     // document.querySelector('#column4').style.backgroundColor = `hsl(${colorAccentHue4}, ${sVal4}%, ${lVal4}%)`
 
-    // console.log(player.position);
-    // console.log(buffer);
-    // console.log(player.context.state);
 
-}, 400);
+//     console.log("blockTime: ", Tone.Destination.blockTime);
+//     console.log("progress", Tone.Transport.progress);
+//     console.log("sampleTime", Tone.Transport.sampleTime);
 
-Tone.Transport.scheduleRepeat((time) => {
-    console.log("scheduled");
+//     // console.log(player.position);
+//     // console.log(buffer);
+//     // console.log(player.context.state);
 
-}, "8n", "1m");
+// }, 400);
+
+// Tone.Transport.scheduleRepeat((time) => {
+//     console.log("scheduled");
+
+// }, "1m");
+
+var loop = new Tone.Loop(function(time){
+	//triggered every eighth note. 
+	console.log("3 sec");
+    console.log(time);
+
+}, 3).start(0);

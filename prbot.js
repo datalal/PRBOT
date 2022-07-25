@@ -364,10 +364,17 @@ setInterval(() => {
     // document.querySelector('#column4').style.backgroundColor = `hsl(${colorAccentHue4}, ${sVal4}%, ${lVal4}%)`
 
 
-    console.log(Tone.Transport.state);
+    console.log("blockTime: ", Tone.Destination.blockTime);
+    console.log("progress", Tone.Transport.progress);
+    console.log("sampleTime", Tone.Transport.sampleTime);
 
     // console.log(player.position);
     // console.log(buffer);
     // console.log(player.context.state);
 
 }, 400);
+
+Tone.Transport.scheduleRepeat((time) => {
+    console.log("scheduled");
+
+}, "8n", "1m");

@@ -358,17 +358,15 @@ setInterval(() => {
     }
 
 
-    document.querySelector('#column1').style.backgroundColor = `hsl(${colorAccentHue1}, ${sVal1}%, ${lVal1}%)`
-    document.querySelector('#column2').style.backgroundColor = `hsl(${colorAccentHue2}, ${sVal2}%, ${lVal2}%)`
-    document.querySelector('#column3').style.backgroundColor = `hsl(${colorAccentHue3}, ${sVal3}%, ${lVal3}%)`
-    document.querySelector('#column4').style.backgroundColor = `hsl(${colorAccentHue4}, ${sVal4}%, ${lVal4}%)`
+    // document.querySelector('#column1').style.backgroundColor = `hsl(${colorAccentHue1}, ${sVal1}%, ${lVal1}%)`
+    // document.querySelector('#column2').style.backgroundColor = `hsl(${colorAccentHue2}, ${sVal2}%, ${lVal2}%)`
+    // document.querySelector('#column3').style.backgroundColor = `hsl(${colorAccentHue3}, ${sVal3}%, ${lVal3}%)`
+    // document.querySelector('#column4').style.backgroundColor = `hsl(${colorAccentHue4}, ${sVal4}%, ${lVal4}%)`
 
 	console.log(Tone.Transport.position);
     console.log(Tone.Transport.progress);
 	console.log(Tone.Transport.seconds);    
-    
-    console.log(Tone.Transport.progress);
-	console.log(Tone.Transport);
+    console.log(Tone.Transport);
 
     // console.log(player.position);
     // console.log(buffer);

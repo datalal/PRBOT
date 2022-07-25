@@ -95,6 +95,8 @@ var p4loopLength = 2;
 
 Tone.Transport.bpm.value = 108;
 Tone.Transport.loop = true;
+Tone.Transport.loopStart = "4m";
+Tone.Transport.loopEnd = "8m";
 
 var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 
@@ -235,8 +237,8 @@ document.querySelector('#reloop1').addEventListener('click', ()=> {
   p1loopStart = Math.floor(Math.random() * 101) + 1;
   colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
   sVal1 = Math.floor(Math.random() * 100) + 1;
-  player.loopStart = p1loopStart;
-  player.loopEnd = p1loopStart + p1loopLength;
+//   player.loopStart = p1loopStart;
+//   player.loopEnd = p1loopStart + p1loopLength;
 }, false)
 
 document.querySelector('#reloop2').addEventListener('click', ()=> {

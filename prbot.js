@@ -83,10 +83,10 @@ console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0]
 
 const mp3 = 'https://www.mfiles.co.uk/mp3-downloads/handel-dead-march-from-saul.mp3';
 var player1isMuted, player2isMuted, player3isMuted, player4isMuted;
-var p1loopStart = Math.floor(Math.random() * 101) + 1;
-var p2loopStart = Math.floor(Math.random() * 101) + 1;; 
-var p3loopStart = Math.floor(Math.random() * 101) + 1;; 
-var p4loopStart = Math.floor(Math.random() * 101) + 1;;
+var p1loopStart = Math.floor(Math.random() * 201) + 1;
+var p2loopStart = Math.floor(Math.random() * 201) + 1;; 
+var p3loopStart = Math.floor(Math.random() * 201) + 1;; 
+var p4loopStart = Math.floor(Math.random() * 201) + 1;;
 
 let p1loopLength = 2;
 var p2loopLength = 2;
@@ -251,7 +251,7 @@ document.querySelector('#reloop2').addEventListener('click', ()=> {
   colorAccentHue2 = Math.floor(Math.random() * 250) + 1;
   sVal2 = Math.floor(Math.random() * 100) + 1;
   player2.loopStart = p2loopStart;
-  player2.loopEnd = p2loopStart + 2;
+  player2.loopEnd = p2loopStart + 3;
 }, false)
 
 document.querySelector('#reloop3').addEventListener('click', ()=> {
@@ -259,7 +259,7 @@ document.querySelector('#reloop3').addEventListener('click', ()=> {
   colorAccentHue3 = Math.floor(Math.random() * 250) + 1;
   sVal3 = Math.floor(Math.random() * 100) + 1;
   player3.loopStart = p3loopStart;
-  player3.loopEnd = p3loopStart + 2;
+  player3.loopEnd = p3loopStart + 3;
 }, false)
 
 document.querySelector('#reloop4').addEventListener('click', ()=> {
@@ -267,7 +267,7 @@ document.querySelector('#reloop4').addEventListener('click', ()=> {
   colorAccentHue4 = Math.floor(Math.random() * 250) + 1;
   sVal4 = Math.floor(Math.random() * 100) + 1;
   player4.loopStart = p4loopStart;
-  player4.loopEnd = p4loopStart + 2;
+  player4.loopEnd = p4loopStart + 3;
 }, false)
 
 document.querySelector('#pbrS').addEventListener('input', (e)=> {
@@ -323,10 +323,10 @@ player2.loopStart = p2loopStart;
 player3.loopStart = p3loopStart;
 player4.loopStart = p4loopStart;
 
-player.loopEnd = p1loopStart + 2;
-player2.loopEnd = p2loopStart + 2;
-player3.loopEnd = p3loopStart + 2;
-player4.loopEnd = p4loopStart + 2;
+player.loopEnd = p1loopStart + 3;
+player2.loopEnd = p2loopStart + 3;
+player3.loopEnd = p3loopStart + 3;
+player4.loopEnd = p4loopStart + 3;
 
 // console.log(player.state);
 var lVal1 = 20;

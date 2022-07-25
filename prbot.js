@@ -137,6 +137,7 @@ player2.loop = true;
 player3.loop = true;
 player4.loop = true;
 
+var sVal1;
 
 document.querySelector('#start').addEventListener('click', ()=> {
     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
@@ -362,9 +363,15 @@ setInterval(() => {
     document.querySelector('#column3').style.backgroundColor = `hsl(${colorAccentHue3}, ${sVal3}%, ${lVal3}%)`
     document.querySelector('#column4').style.backgroundColor = `hsl(${colorAccentHue4}, ${sVal4}%, ${lVal4}%)`
 
-	// console.log(Tone.AudioNode.context);
+	console.log(Tone.Transport.position);
+    console.log(Tone.Transport.progress);
+	console.log(Tone.Transport.seconds);    
+    
+    console.log(Tone.Transport.progress);
+	console.log(Tone.Transport);
+
     // console.log(player.position);
     // console.log(buffer);
     // console.log(player.context.state);
 
-}, 80);
+}, 400);

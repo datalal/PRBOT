@@ -144,10 +144,10 @@ player4.loop = true;
 
 var sVal1;
 
-document.querySelector('#start').addEventListener('click', ()=> {
-    colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
-    sVal1 = Math.floor(Math.random() * 100) + 1;
-    player.sync().start(0)});
+// document.querySelector('#start').addEventListener('click', ()=> {
+//     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
+//     sVal1 = Math.floor(Math.random() * 100) + 1;
+//     player.sync().start(0)});
 
 
 document.querySelector('#start2').addEventListener('click', ()=> {
@@ -390,4 +390,4 @@ var loop = new Tone.Loop(function(time){
 	console.log("3 sec"); 
     console.log(time);
 
-}, p1loopLength).start(0);
+}, p1loopLength).sync(0).start(0);

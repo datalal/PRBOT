@@ -103,7 +103,7 @@ var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 const player = new Tone.Player({
     url: mp3,
     loop: true
-}).toDestination().sync().start(0);
+}).toDestination().sync();
 // let player = new Tone.Player(mp3, ()=> {
 //  document.querySelectorAll('button').forEach((e)=>e.disabled = false)
 //   document.querySelector('#loading').textContent = '';
@@ -381,7 +381,8 @@ var lVal4 = 20;
 
 var loop = new Tone.Loop(function(time){
 	//triggered every eighth note. 
-	console.log("3 sec");
+    player.restart();
+	console.log("3 sec"); 
     console.log(time);
 
 }, 3).start(0);

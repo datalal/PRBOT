@@ -100,20 +100,25 @@ Tone.Transport.loopEnd = "8m";
 
 var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 
-const player = new Tone.Player({
+let player = new Tone.Player({
     url: mp3,
     loop: true
 }).toDestination().sync().start(p1loopStart);
+
+let player2 = new Tone.Player({
+    url: mp3,
+    loop: true
+}).toDestination().sync().start(p2loopStart);
 // let player = new Tone.Player(mp3, ()=> {
 //  document.querySelectorAll('button').forEach((e)=>e.disabled = false)
 //   document.querySelector('#loading').textContent = '';
 //   document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
 // }).toDestination().sync().start(0);
-let player2 = new Tone.Player(mp3, ()=> {
-document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-  document.querySelector('#loading2').textContent = '';
-  document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
-}).toMaster();
+// let player2 = new Tone.Player(mp3, ()=> {
+// document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+//   document.querySelector('#loading2').textContent = '';
+//   document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
+// }).toMaster();
 
 let player3 = new Tone.Player(mp3, ()=> {
 document.querySelectorAll('button').forEach((e)=>e.disabled = false)
@@ -142,7 +147,7 @@ var sVal1;
 document.querySelector('#start').addEventListener('click', ()=> {
     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
     sVal1 = Math.floor(Math.random() * 100) + 1;
-    player.start()});
+    player.sync().start(p1loopStart)});
 
 
 document.querySelector('#start2').addEventListener('click', ()=> {

@@ -392,10 +392,10 @@ var loop = new Tone.Loop(function(time){
 
 }, p1loopLength).sync(0).start(0);
 
-var loop2 = new Tone.Loop(function(time){
-	//triggered every eighth note. 
-    player2.restart();
-	console.log("loop2 3 sec"); 
-    console.log(time);
+// var loop2 = new Tone.Loop(function(time){
+// 	//triggered every eighth note. 
+//     player2.restart();
+// 	console.log("loop2 3 sec"); 
+//     console.log(time);
 
-}, p2loopLength).sync(0).start(0);
+// }, p2loopLength).sync(0).start();

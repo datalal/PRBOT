@@ -247,6 +247,9 @@ document.querySelector('#reloop1').addEventListener('click', ()=> {
   p1loopStart = Math.floor(Math.random() * 101) + 1;
   colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
   sVal1 = Math.floor(Math.random() * 100) + 1;
+  console.log('reloop p1loopStart');
+
+  console.log(p1loopStart);
   player.restart(22);
 
 //   player.loopStart = p1loopStart;
@@ -391,7 +394,9 @@ var loop = new Tone.Loop(function(time){
     player.restart(0);
 	console.log("3 sec"); 
     console.log(time);
+    console.log('restart p1loopStart');
 
+    console.log(p1loopStart);
 }, 3).sync().start(0);
 
 // var loop2 = new Tone.Loop(function(time){

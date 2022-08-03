@@ -88,7 +88,7 @@ var p2loopStart = Math.floor(Math.random() * 201) + 1;
 var p3loopStart = Math.floor(Math.random() * 201) + 1; 
 var p4loopStart = Math.floor(Math.random() * 201) + 1;
 
-let p1loopLength = 2;
+var p1loopLength = 2;
 var p2loopLength = 2;
 var p3loopLength = 2;
 var p4loopLength = 2;
@@ -392,7 +392,7 @@ var loop = new Tone.Loop(function(time){
 	console.log("3 sec"); 
     console.log(time);
 
-}, p1loopLength).sync(0).start(0);
+}, 3).sync().start(0);
 
 // var loop2 = new Tone.Loop(function(time){
 // 	//triggered every eighth note. 

@@ -247,6 +247,8 @@ document.querySelector('#reloop1').addEventListener('click', ()=> {
   p1loopStart = Math.floor(Math.random() * 101) + 1;
   colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
   sVal1 = Math.floor(Math.random() * 100) + 1;
+  player.restart(p1loopStart);
+
 //   player.loopStart = p1loopStart;
 //   player.loopEnd = p1loopStart + p1loopLength;
 }, false)

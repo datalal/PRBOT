@@ -104,7 +104,7 @@ var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 
 let player = new Tone.Player({
     url: mp3,
-    loop: true
+    // loop: true
 }).toDestination().sync().start(p1loopStart);
 
 let player2 = new Tone.Player({
@@ -252,7 +252,7 @@ document.querySelector('#reloop1').addEventListener('click', ()=> {
   console.log('reloop p1loopStart');
 
   console.log(p1loopStart);
-  player.restart(22);
+  player.restart(p1loopStart);
 
 //   player.loopStart = p1loopStart;
 //   player.loopEnd = p1loopStart + p1loopLength;

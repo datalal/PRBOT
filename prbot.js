@@ -83,7 +83,9 @@ console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0]
 
 const mp3 = 'https://www.mfiles.co.uk/mp3-downloads/handel-dead-march-from-saul.mp3';
 var player1isMuted, player2isMuted, player3isMuted, player4isMuted;
-var p1loopStart = Math.floor(Math.random() * 101) + 1;
+// var p1loopStart = Math.floor(Math.random() * 101) + 1;
+var p1loopStart = 0;
+
 var p2loopStart = Math.floor(Math.random() * 201) + 1;
 var p3loopStart = Math.floor(Math.random() * 201) + 1; 
 var p4loopStart = Math.floor(Math.random() * 201) + 1;

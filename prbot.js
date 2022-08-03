@@ -103,7 +103,7 @@ var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 const player = new Tone.Player({
     url: mp3,
     loop: true
-}).toDestination().sync().start(sVal1);
+}).toDestination().sync().start(p1loopStart);
 // let player = new Tone.Player(mp3, ()=> {
 //  document.querySelectorAll('button').forEach((e)=>e.disabled = false)
 //   document.querySelector('#loading').textContent = '';
@@ -385,4 +385,4 @@ var loop = new Tone.Loop(function(time){
 	console.log("3 sec"); 
     console.log(time);
 
-}, 3).start(0);
+}, p1loopLength).start(p1loopStart);

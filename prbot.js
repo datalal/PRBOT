@@ -103,12 +103,12 @@ var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 let player = new Tone.Player({
     url: mp3,
     loop: true
-}).toDestination().sync().start(p1loopStart);
+}).toDestination().sync().start(0);
 
 let player2 = new Tone.Player({
     url: mp3,
     loop: true
-}).toDestination().sync().start(p2loopStart);
+}).toDestination().sync().start(0);
 // let player = new Tone.Player(mp3, ()=> {
 //  document.querySelectorAll('button').forEach((e)=>e.disabled = false)
 //   document.querySelector('#loading').textContent = '';
@@ -137,8 +137,8 @@ player2.playbackRate = 1;
 player3.playbackRate = 1;
 player4.playbackRate = 1;
 
-player.loop = true;
-player2.loop = true;
+// player.loop = true;
+// player2.loop = true;
 player3.loop = true;
 player4.loop = true;
 
@@ -147,7 +147,7 @@ var sVal1;
 document.querySelector('#start').addEventListener('click', ()=> {
     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
     sVal1 = Math.floor(Math.random() * 100) + 1;
-    player.sync().start(p1loopStart)});
+    player.sync().start(0)});
 
 
 document.querySelector('#start2').addEventListener('click', ()=> {
@@ -390,4 +390,4 @@ var loop = new Tone.Loop(function(time){
 	console.log("3 sec"); 
     console.log(time);
 
-}, p1loopLength).start(p1loopStart);
+}, p1loopLength).start(0);

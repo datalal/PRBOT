@@ -83,10 +83,10 @@ console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0]
 
 const mp3 = 'https://www.mfiles.co.uk/mp3-downloads/handel-dead-march-from-saul.mp3';
 var player1isMuted, player2isMuted, player3isMuted, player4isMuted;
-var p1loopStart = Math.floor(Math.random() * 201) + 1;
-var p2loopStart = Math.floor(Math.random() * 201) + 1;; 
-var p3loopStart = Math.floor(Math.random() * 201) + 1;; 
-var p4loopStart = Math.floor(Math.random() * 201) + 1;;
+var p1loopStart = Math.floor(Math.random() * 101) + 1;
+var p2loopStart = Math.floor(Math.random() * 201) + 1;
+var p3loopStart = Math.floor(Math.random() * 201) + 1; 
+var p4loopStart = Math.floor(Math.random() * 201) + 1;
 
 let p1loopLength = 2;
 var p2loopLength = 2;
@@ -103,7 +103,7 @@ var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 let player = new Tone.Player({
     url: mp3,
     loop: true
-}).toDestination().sync();
+}).toDestination().sync().start(p1loopStart);
 
 let player2 = new Tone.Player({
     url: mp3,

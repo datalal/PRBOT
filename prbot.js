@@ -148,19 +148,31 @@ player4.reverse = false;
 
 var sVal1;
 
-document.querySelector('#start').addEventListener('click', async (time)=> {
-    if( Tone.context.state !== 'running') {
+
+
+document.querySelector('#start').addEventListener('click',  (time)=> {
+    console.log(Tone.context.state);
+    if( Tone.context.state === 'suspended') {
+        console.log(Tone.context.state);
         Tone.context.resume();
-        Tone.start();
+        // player.start(0, p1loopStart);
+
+
+    } else {
+        console.log(Tone.context.state);
+        Tone.context.resume();
+        Tone.Transport.start();       
+         // player.start(0, p1loopStart);
+
+
     }
-    
-    await Tone.Transport.start();
+    // await player.start(0, p1loopStart);
+
     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
     sVal1 = Math.floor(Math.random() * 100) + 1;
     // console.log("current time: ", player.now());
     // console.log("start time: ", p1loopStart);
     p1stopped = false;
-    player.start(0, p1loopStart);
     console.log(p1stopped);
 
 

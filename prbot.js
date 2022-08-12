@@ -1,10 +1,5 @@
-let buffer = new Tone.Buffer();
+// let buffer = new Tone.Buffer();
 
-// let player = new Tone.Player(mp3, ()=> {
-// document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-//   document.querySelector('#loading2').textContent = '';
-//   document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
-// }).toMaster();
 
 function readFile1(files) {
 	var fileReader = new FileReader();
@@ -20,7 +15,8 @@ document.querySelectorAll('button').forEach((e)=>e.disabled = false)
   document.querySelector('#loading1').insertAdjacentHTML('beforeend','loaded');
 });   
     
-console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0].size/1024/1024*100))/100) + " MB)" ));
+console.log(("Filename: '" + files[ 0].name + "'"), ( "(" + ((Math.floor(files[0].size/1024/1024*100))/100) + " MB)" ));
+console.log(player.buffer.duration);
 			}
 	}
 
@@ -84,72 +80,87 @@ console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0]
 const mp3 = 'https://www.mfiles.co.uk/mp3-downloads/handel-dead-march-from-saul.mp3';
 var player1isMuted, player2isMuted, player3isMuted, player4isMuted;
 // var p1loopStart = Math.floor(Math.random() * 101) + 1;
-var p1loopStart = 0;
+let p1loopStart = Math.floor(Math.random() * 201) + 1;;
 
 var p2loopStart = Math.floor(Math.random() * 201) + 1;
 var p3loopStart = Math.floor(Math.random() * 201) + 1; 
 var p4loopStart = Math.floor(Math.random() * 201) + 1;
 
-var p1loopLength = 2;
-var p2loopLength = 2;
-var p3loopLength = 2;
-var p4loopLength = 2;
+var p1loopLength = 3;
+var p2loopLength = 3;
+var p3loopLength = 3;
+var p4loopLength = 3;
 
-Tone.Transport.bpm.value = 108;
-Tone.Transport.loop = true;
-Tone.Transport.loopStart = "4m";
-Tone.Transport.loopEnd = "8m";
+var p1stopped = true;
+var p2stopped = true;
+var p3stopped = true;
+var p4stopped = true;
+
+var muteAll = false;
+
+var distortion1on = false;
+
+const reverb = new Tone.Reverb(5).toDestination();
+
+// Tone.Transport.bpm.value = 120;
+// Tone.Transport.loop = true;
+// Tone.Transport.loopStart = "4m";
+// Tone.Transport.loopEnd = "8m";
 
 var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 
-let player = new Tone.Player({
-    url: mp3,
-    // loop: true
-}).toDestination().sync().start(p1loopStart);
+let player = new Tone.Player(mp3, ()=> {
+ document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+  document.querySelector('#loading').textContent = '';
+  document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+}).toDestination();
 
-let player2 = new Tone.Player({
-    url: mp3,
-    loop: true
-}).toDestination().sync().start(0);
-// let player = new Tone.Player(mp3, ()=> {
-//  document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-//   document.querySelector('#loading').textContent = '';
-//   document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
-// }).toDestination().sync().start(0);
-// let player2 = new Tone.Player(mp3, ()=> {
-// document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-//   document.querySelector('#loading2').textContent = '';
-//   document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
-// }).toMaster();
+let player2 = new Tone.Player(mp3, ()=> {
+document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+  document.querySelector('#loading2').textContent = '';
+  document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
+}).toDestination()
 
 let player3 = new Tone.Player(mp3, ()=> {
 document.querySelectorAll('button').forEach((e)=>e.disabled = false)
   document.querySelector('#loading3').textContent = '';
   document.querySelector('#loading3').insertAdjacentHTML('beforeend','loaded');
-}).toMaster();
+}).toDestination();
 
 let player4 = new Tone.Player(mp3, ()=> {
 document.querySelectorAll('button').forEach((e)=>e.disabled = false)
   document.querySelector('#loading4').textContent = '';
   document.querySelector('#loading4').insertAdjacentHTML('beforeend','loaded');
-}).toMaster();
+}).toDestination();
 
 player.playbackRate = 1;
 player2.playbackRate = 1;
 player3.playbackRate = 1;
 player4.playbackRate = 1;
 
-// player.loop = true;
-// player2.loop = true;
-player3.loop = true;
-player4.loop = true;
+player.reverse = false;
+player2.reverse = false;
+player3.reverse = false;
+player4.reverse = false;
+
+// player.loopStart = p1loopStart;
+// player.loopEnd = loopStart + p1loopLength;
 
 var sVal1;
 
-// document.querySelector('#start').addEventListener('click', ()=> {
-//     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
-//     sVal1 = Math.floor(Math.random() * 100) + 1;
-//     player.sync().start(0)});
+document.querySelector('#start').addEventListener('click', (time)=> {
+    // p1loopStart = Math.floor(Math.random() * 201) + 1;;
+    colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
+    sVal1 = Math.floor(Math.random() * 100) + 1;
+    // console.log("current time: ", player.now());
+    // console.log("start time: ", p1loopStart);
+    p1stopped = false;
+    Tone.Transport.start();
+    player.start(0, p1loopStart);
+    console.log(p1stopped);
+
+
+});
 
 
 document.querySelector('#start2').addEventListener('click', ()=> {
@@ -170,18 +181,40 @@ document.querySelector('#start4').addEventListener('click', ()=> {
     player4.start()});
 
 // connect the UI with the components
-document.querySelector("tone-play-toggle").addEventListener("start", () => Tone.Transport.start());
-document.querySelector("tone-play-toggle").addEventListener("stop", () => Tone.Transport.stop());
+// document.querySelector("tone-play-toggle").addEventListener("start", () => Tone.Transport.start());
+// document.querySelector("tone-play-toggle").addEventListener("stop", () => {
+//     Tone.Transport.stop();
+//     player.stop();
+
+// });
 
 // document.querySelector('#start2').addEventListener('click', ()=> player2.start());
 
 // document.querySelector('#start3').addEventListener('click', ()=> player3.start());
 
 // document.querySelector('#start4').addEventListener('click', ()=> player4.start());
+document.querySelector('#reverse1').addEventListener('click', ()=> {
+    if(player.reverse == true) {
+        player.reverse = false;
+        document.querySelector('#reverse1').textContent = 'reverse';
+
+    } else {
+        player.reverse = true;
+        document.querySelector('#reverse1').textContent = 'forward';
+
+    }
+    
+
+    // document.querySelector('#column1').style.backgroundColor = '#aaa';
+
+});
+
 
 document.querySelector('#stop').addEventListener('click', ()=> {
-    player.stop()
-    document.querySelector('#column1').style.backgroundColor = '#aaa';
+    p1stopped = true;
+    player.stop();
+
+    // document.querySelector('#column1').style.backgroundColor = '#aaa';
 
 });
 
@@ -239,6 +272,33 @@ document.querySelector('#mute4').addEventListener('click', ()=> {
   
 }, false)
 
+document.querySelector('#muteAll').addEventListener('click', ()=> {
+    if(muteAll){
+        Tone.Destination.mute = false;
+        muteAll = false;
+  
+    } else {
+        Tone.Destination.mute = true;
+        muteAll = true;
+    }
+    
+  }, false)
+
+
+  document.querySelector('#distortion1').addEventListener('click', ()=> {
+    if(distortion1on){
+        player.disconnect(reverb)
+        distortion1on = false;
+        document.querySelector('#distortion1').className = 'mini ui black basic button';
+  
+    } else {
+        player.connect(reverb)
+        distortion1on = true;
+        document.querySelector('#distortion1').className = 'mini ui inverted blue button';
+    }
+    
+  }, false)
+
 // document.querySelector('#p1loopLength').addEventListener('input', (e)=> {
 //   let val = e.currentTarget.value;
 //   document.querySelector('#p1loopLengthOutput').value = val;
@@ -250,12 +310,12 @@ document.querySelector('#reloop1').addEventListener('click', ()=> {
   colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
   sVal1 = Math.floor(Math.random() * 100) + 1;
   console.log('reloop p1loopStart');
-
+  p1stopped = false;
   console.log(p1loopStart);
-  player.restart(p1loopStart);
+  player.stop();
+  player.start(0, p1loopStart);
+//   player.restart(0, p1loopStart);
 
-//   player.loopStart = p1loopStart;
-//   player.loopEnd = p1loopStart + p1loopLength;
 }, false)
 
 document.querySelector('#reloop2').addEventListener('click', ()=> {
@@ -330,15 +390,28 @@ document.querySelector('#p4Volume').addEventListener('input', (e)=> {
   player4.volume.value = val;
 }, false)
 
-player.loopStart = p1loopStart;
-player2.loopStart = p2loopStart;
-player3.loopStart = p3loopStart;
-player4.loopStart = p4loopStart;
+document.querySelector('#loopLength1').addEventListener('input', (e)=> {
+    let val = e.currentTarget.value;
+    document.querySelector('#loopLength1val').value = val;
+    Tone.Transport.cancel(0);
+    p1loopLength = val;
+    console.log(p1loopLength);
+    schedulePattern1();
 
-player.loopEnd = p1loopStart + 3;
-player2.loopEnd = p2loopStart + 3;
-player3.loopEnd = p3loopStart + 3;
-player4.loopEnd = p4loopStart + 3;
+  }, false)
+
+
+
+
+// player.loopStart = p1loopStart;
+// player2.loopStart = p2loopStart;
+// player3.loopStart = p3loopStart;
+// player4.loopStart = p4loopStart;
+
+// player.loopEnd = p1loopStart + 3;
+// player2.loopEnd = p2loopStart + 3;
+// player3.loopEnd = p3loopStart + 3;
+// player4.loopEnd = p4loopStart + 3;
 
 // console.log(player.state);
 var lVal1 = 20;
@@ -391,15 +464,15 @@ var lVal4 = 20;
 
 // }, "1m");
 
-var loop = new Tone.Loop(function(time){
-	//triggered every eighth note. 
-    player.restart(0);
-	console.log("3 sec"); 
-    console.log(time);
-    console.log('restart p1loopStart');
+// var loop = new Tone.Loop(function(time){
+// 	//triggered every eighth note. 
+//     player.restart(0);
+// 	console.log("3 sec"); 
+//     console.log(time);
+//     console.log('restart p1loopStart');
 
-    console.log(p1loopStart);
-}, 3).sync().start(0);
+//     console.log(p1loopStart);
+// }, 3).sync().start(0);
 
 // var loop2 = new Tone.Loop(function(time){
 // 	//triggered every eighth note. 
@@ -408,3 +481,32 @@ var loop = new Tone.Loop(function(time){
 //     console.log(time);
 
 // }, p2loopLength).sync(0).start();
+
+Tone.Transport.scheduleRepeat((time) => {
+	// use the callback time to schedule events
+    // player.restart(time);
+    // player.unsync().stop().sync().start(p1loopStart, 0)
+    if(p1stopped == false){
+        player.stop();
+        player.start(0, p1loopStart);
+        console.log('restart p1loopStart');
+        console.log(p1loopLength);
+
+    }
+}, p1loopLength);
+
+let schedulePattern1 = () => {
+    Tone.Transport.scheduleRepeat((time) => {
+        // use the callback time to schedule events
+        // player.restart(time);
+        // player.unsync().stop().sync().start(p1loopStart, 0)
+
+        if(p1stopped == false){
+            player.stop();
+            player.start(0, p1loopStart);
+            console.log('restart p1loopStart');
+            console.log(p1loopLength);
+    
+        }
+    }, p1loopLength);
+}

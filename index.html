@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="semantic/dist/semantic.css">
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/dist/semantic.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.5.44/Tone.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.4.3/webcomponents-bundle.js"></script>
 <script src="./js/tone-ui.js"></script>
@@ -7,21 +14,44 @@
     <link rel="stylesheet" href="styles.css">
   </head>
 <div class="row">
-  <div class="column" id="column1" style="background-color:#aaa;">
+  <div class="column" id="column1" style="border:3px solid #000;">
     <h2>Player 1</h2>
     <input  id="audioFileChooser" type="file" onchange="readFile1(this.files);">
+
+    <span id="loading">loading...</span><br />
 <br />
     <br />
+    <div class="ui icon  buttons">
+        <button id="start" class="ui button" disabled>
+            <i class="play icon"></i>
+        </button>
+    </div>
+    <div class="ui icon  buttons">
+        <button id="stop" class="ui button" disabled>
+            <i class="stop icon"></i>
+        </button>
+    </div>
+    <br />
+    <br />
 
-    <button id="start" disabled>start</button><button id="stop" disabled>stop</button><button id="mute1" disabled>mute</button><button id="reloop1" disabled>reloop</button>&nbsp;<span id="loading">loading...</span><br />
+    <button class="mini ui black basic button" id="mute1" disabled>mute</button>
+    <button class="mini ui black basic button" id="reloop1" disabled>reloop</button>
+
+    <button class="mini ui black basic button" id="reverse1" disabled>reverse</button>
+    <button class="mini ui black basic button" id="distortion1" disabled>reverb</button>&nbsp;
+
 <!-- loopLength: <input type="range" id="p1loopLength" value="2" min="1" max="8" step="1"><output id="p1loopLengthOutput">1</output> -->
-playbackRate: <input type="range" id="pbrS" value="1" min="0" max="2" step="0.01"><output id="pbrO">1</output>
+<br />
+<br />
+playbackRate: <input class="slider" type="range" id="pbrS" value="1" min="0" max="2" step="0.01"><output id="pbrO">1</output>
 
  <br />
-Volume: <input type="range" id="p1Volume" value="1" min="-50" max="15" step="1"><output id="p1VolOut">1</output>
+Volume: <input class="slider" type="range" id="p1Volume" value="1" min="-50" max="15" step="1"><output id="p1VolOut">1</output>
+<br />
+Loop Length: <input class="slider" type="range" id="loopLength1" value="3" min="1" max="10" step="1"><output id="loopLength1val">1</output>
   </div>
   
-  <div class="column" id="column2" style="background-color:#bbb;">
+  <div class="column" id="column2" style="border:3px solid #000;">
     <h2>Player 2</h2>
         <input  id="audioFileChooser" type="file" onchange="readFile2(this.files);">
 <br />
@@ -32,7 +62,7 @@ playbackRate: <input type="range" id="pbrS2" value="1" min="0" max="2" step="0.0
 Volume: <input type="range" id="p2Volume" value="1" min="-50" max="15" step="1"><output id="p2VolOut">1</output>
   </div>
   
-  <div class="column" style="background-color:#ccc;">
+  <div class="column" style="border:3px solid #000;">
     <h2>Player 3</h2>
         <input  id="audioFileChooser" type="file" onchange="readFile3(this.files);">
 <br />
@@ -43,7 +73,7 @@ playbackRate: <input type="range" id="pbrS3" value="1" min="0" max="2" step="0.0
 Volume: <input type="range" id="p3Volume" value="1" min="-50" max="15" step="1"><output id="p3VolOut">1</output>
   </div>
   
-  <div class="column" id="column4" style="background-color:#ddd;">
+  <div class="column" id="column4" style="border:3px solid #000;">
     <h2>Player 4</h2>
         <input  id="audioFileChooser" type="file" onchange="readFile4(this.files);">
 <br />
@@ -54,7 +84,7 @@ playbackRate: <input type="range" id="pbrS4" value="1" min="0" max="2" step="0.0
 Volume: <input type="range" id="p4Volume" value="1" min="-50" max="15" step="1"><output id="p4VolOut">1</output>
   </div>
 </div>
-
-<tone-play-toggle></tone-play-toggle>
+<br />
+<button id="muteAll" disabled>Mute ALL</button>
 
 <script src="prbot.js"></script>

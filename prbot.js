@@ -178,6 +178,35 @@ document.querySelector('#start').addEventListener('click',  (time)=> {
 
 });
 
+
+document.querySelector('#start').addEventListener('touchstart',  (time)=> {
+    console.log(Tone.context.state);
+    if( Tone.context.state === 'suspended') {
+        console.log(Tone.context.state);
+        Tone.context.resume();
+        // player.start(0, p1loopStart);
+
+
+    } else {
+        console.log(Tone.context.state);
+        Tone.context.resume();
+        Tone.Transport.start();       
+         // player.start(0, p1loopStart);
+
+
+    }
+    // await player.start(0, p1loopStart);
+
+    colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
+    sVal1 = Math.floor(Math.random() * 100) + 1;
+    // console.log("current time: ", player.now());
+    // console.log("start time: ", p1loopStart);
+    p1stopped = false;
+    console.log(p1stopped);
+
+
+});
+
 // document.querySelector('#start').addEventListener('touchstart', (time)=> {
 //     // p1loopStart = Math.floor(Math.random() * 201) + 1;;
 //     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;

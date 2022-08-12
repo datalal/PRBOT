@@ -1,5 +1,6 @@
 // let buffer = new Tone.Buffer();
 
+Tone.context.resume();
 
 function readFile1(files) {
 	var fileReader = new FileReader();

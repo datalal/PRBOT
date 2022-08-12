@@ -162,6 +162,20 @@ document.querySelector('#start').addEventListener('click', (time)=> {
 
 });
 
+document.querySelector('#start').addEventListener('touchstart', (time)=> {
+    // p1loopStart = Math.floor(Math.random() * 201) + 1;;
+    colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
+    sVal1 = Math.floor(Math.random() * 100) + 1;
+    // console.log("current time: ", player.now());
+    // console.log("start time: ", p1loopStart);
+    p1stopped = false;
+    Tone.Transport.start();
+    player.start(0, p1loopStart);
+    console.log(p1stopped);
+
+
+});
+
 
 document.querySelector('#start2').addEventListener('click', ()=> {
     colorAccentHue2 = Math.floor(Math.random() * 250) + 1;

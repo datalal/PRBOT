@@ -2,6 +2,10 @@
 
 Tone.context.resume();
 
+const context2 = new Tone.Context();
+const context3 = new Tone.Context();
+const context4 = new Tone.Context();
+
 function readFile1(files) {
 	var fileReader = new FileReader();
 	fileReader.readAsArrayBuffer(files[0]);
@@ -80,9 +84,8 @@ console.log(("Filename: '" + files[0].name + "'"), ( "(" + ((Math.floor(files[0]
 
 const mp3 = 'https://www.mfiles.co.uk/mp3-downloads/handel-dead-march-from-saul.mp3';
 var player1isMuted, player2isMuted, player3isMuted, player4isMuted;
-// var p1loopStart = Math.floor(Math.random() * 101) + 1;
-let p1loopStart = Math.floor(Math.random() * 201) + 1;;
 
+var p1loopStart = Math.floor(Math.random() * 201) + 1;;
 var p2loopStart = Math.floor(Math.random() * 201) + 1;
 var p3loopStart = Math.floor(Math.random() * 201) + 1; 
 var p4loopStart = Math.floor(Math.random() * 201) + 1;
@@ -99,16 +102,22 @@ var p4stopped = true;
 
 var muteAll = false;
 
-var distortion1on = false;
+var reverb1on = false;
+var reverb2on = false;
+var reverb3on = false;
+var reverb4on = false;
 
 const reverb = new Tone.Reverb(5).toDestination();
+const reverb2 = new Tone.Reverb(5).toDestination();
+const reverb3 = new Tone.Reverb(5).toDestination();
+const reverb4 = new Tone.Reverb(5).toDestination();
 
-// Tone.Transport.bpm.value = 120;
-// Tone.Transport.loop = true;
-// Tone.Transport.loopStart = "4m";
-// Tone.Transport.loopEnd = "8m";
-
-var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
+// var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
+// let player2 = new Tone.Player({
+//     url: mp3,
+//     context: context2,
+//     autostart: true
+// });
 
 let player = new Tone.Player(mp3, ()=> {
  document.querySelectorAll('button').forEach((e)=>e.disabled = false)
@@ -117,10 +126,10 @@ let player = new Tone.Player(mp3, ()=> {
 }).toDestination();
 
 let player2 = new Tone.Player(mp3, ()=> {
-document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-  document.querySelector('#loading2').textContent = '';
-  document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
-}).toDestination()
+    document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+     document.querySelector('#loading2').textContent = '';
+     document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
+   }).toDestination();
 
 let player3 = new Tone.Player(mp3, ()=> {
 document.querySelectorAll('button').forEach((e)=>e.disabled = false)
@@ -144,11 +153,7 @@ player2.reverse = false;
 player3.reverse = false;
 player4.reverse = false;
 
-// player.loopStart = p1loopStart;
-// player.loopEnd = loopStart + p1loopLength;
-
 var sVal1;
-
 
 
 document.querySelector('#start').addEventListener('click',  (time)=> {
@@ -156,23 +161,26 @@ document.querySelector('#start').addEventListener('click',  (time)=> {
     if( Tone.context.state === 'suspended') {
         console.log(Tone.context.state);
         Tone.context.resume();
-        // player.start(0, p1loopStart);
+        if(Tone.Transport.state === "stopped") {Tone.Transport.start();}
+        player.start(0, p1loopStart);
 
+        document.querySelector('#start').className = 'ui button active';
+        document.querySelector('#stop').className = 'ui button';
 
     } else {
         console.log(Tone.context.state);
         Tone.context.resume();
-        Tone.Transport.start();       
-         // player.start(0, p1loopStart);
+        if(Tone.Transport.state === "stopped") {Tone.Transport.start();}
+        player.start(0, p1loopStart);
+
+        document.querySelector('#start').className = 'ui button active';
+        document.querySelector('#stop').className = 'ui button';    
 
 
     }
-    // await player.start(0, p1loopStart);
 
     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
     sVal1 = Math.floor(Math.random() * 100) + 1;
-    // console.log("current time: ", player.now());
-    // console.log("start time: ", p1loopStart);
     p1stopped = false;
     console.log(p1stopped);
 
@@ -184,17 +192,23 @@ document.querySelector('#start').addEventListener('touchstart',  (time)=> {
     console.log(Tone.context.state);
     if( Tone.context.state === 'suspended') {
         console.log(Tone.context.state);
-        Tone.context.resume();
-        // player.start(0, p1loopStart);
+        // Tone.context2.resume();
+        if(Tone.Transport.state === "stopped") {Tone.Transport.start();}
 
+        player.start(0, p1loopStart);
+        // Tone.Transport.start();       
+
+        document.querySelector('#start').className = 'ui button active';
 
     } else {
         console.log(Tone.context.state);
         Tone.context.resume();
-        Tone.Transport.start();       
-         // player.start(0, p1loopStart);
+        if(Tone.Transport.state === "stopped") {Tone.Transport.start();}
 
+        // Tone.Transport.start();       
+         player.start(0, p1loopStart);
 
+2
     }
     // await player.start(0, p1loopStart);
 
@@ -208,25 +222,89 @@ document.querySelector('#start').addEventListener('touchstart',  (time)=> {
 
 });
 
-// document.querySelector('#start').addEventListener('touchstart', (time)=> {
-//     // p1loopStart = Math.floor(Math.random() * 201) + 1;;
-//     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
-//     sVal1 = Math.floor(Math.random() * 100) + 1;
-//     // console.log("current time: ", player.now());
-//     // console.log("start time: ", p1loopStart);
-//     p1stopped = false;
-//     Tone.Transport.start();
-//     player.start(0, p1loopStart);
-//     console.log(p1stopped);
+
+document.querySelector('#start2').addEventListener('click',  (time)=> {
+    console.log(Tone.context.state);
+    if( Tone.context.state === 'suspended') {
+        // console.log(Tone.context.state);
+        Tone.context.resume();
+        if(Tone.Transport.state === "stopped") {Tone.Transport.start();}
+        player2.start(0, p2loopStart);
+       
+
+        document.querySelector('#start2').className = 'ui button active';
+        document.querySelector('#stop2').className = 'ui button';
+
+    } else {
+        // console.log(Tone.context.state);
+        Tone.context.resume();
+        if(Tone.Transport.state === "stopped") {Tone.Transport.start();}
+        player2.start(0, p2loopStart);
+
+        document.querySelector('#start2').className = 'ui button active';
+        document.querySelector('#stop2').className = 'ui button';    
 
 
-// });
+    }
 
-
-document.querySelector('#start2').addEventListener('click', ()=> {
     colorAccentHue2 = Math.floor(Math.random() * 250) + 1;
     sVal2 = Math.floor(Math.random() * 100) + 1;
-    player2.start()});
+    p2stopped = false;
+    console.log(p2stopped);
+
+
+});
+
+
+document.querySelector('#start2').addEventListener('touchstart',  (time)=> {
+    console.log(Tone.context.state);
+    if( Tone.context.state === 'suspended') {
+        console.log(Tone.context.state);
+        Tone.context.resume();
+        if(Tone.Transport.state === "stopped"){
+            Tone.Transport.start();
+        }
+
+        player2.start(0, p2loopStart);
+
+        // schedulePattern2();
+
+        // Tone.Transport.start();       
+
+        document.querySelector('#start2').className = 'ui button active';
+
+    } else {
+        console.log(Tone.context.state);
+        Tone.context.resume();
+        if(Tone.Transport.state === "stopped"){
+            Tone.Transport.start();
+        }
+
+        player2.start(0, p2loopStart);
+
+        // schedulePattern2();
+        // player.start(0, p1loopStart);
+
+
+    }
+    // await player.start(0, p1loopStart);
+
+    colorAccentHue2 = Math.floor(Math.random() * 250) + 1;
+    sVal2 = Math.floor(Math.random() * 100) + 1;
+    // console.log("current time: ", player.now());
+    // console.log("start time: ", p1loopStart);
+    p2stopped = false;
+    console.log(p2stopped);
+
+
+});
+
+
+
+// document.querySelector('#start2').addEventListener('click', ()=> {
+//     colorAccentHue2 = Math.floor(Math.random() * 250) + 1;
+//     sVal2 = Math.floor(Math.random() * 100) + 1;
+//     player2.start()});
     
 
 document.querySelector('#start3').addEventListener('click', ()=> {
@@ -269,29 +347,70 @@ document.querySelector('#reverse1').addEventListener('click', ()=> {
 
 });
 
+document.querySelector('#reverse2').addEventListener('click', ()=> {
+    if(player2.reverse == true) {
+        player2.reverse = false;
+        document.querySelector('#reverse2').textContent = 'reverse';
 
-document.querySelector('#stop').addEventListener('click', ()=> {
-    p1stopped = true;
-    player.stop();
+    } else {
+        player2.reverse = true;
+        document.querySelector('#reverse2').textContent = 'forward';
+
+    }
+    
 
     // document.querySelector('#column1').style.backgroundColor = '#aaa';
 
 });
 
-document.querySelector('#stop2').addEventListener('click', ()=> player2.stop());
 
-document.querySelector('#stop3').addEventListener('click', ()=> player3.stop());
+document.querySelector('#stop').addEventListener('click', ()=> {
+    p1stopped = true;
+    player.stop();
+    document.querySelector('#stop').className = 'ui button active';
+    document.querySelector('#start').className = 'ui button';
 
-document.querySelector('#stop4').addEventListener('click', ()=> player4.stop());
+    // document.querySelector('#column1').style.backgroundColor = '#aaa';
+
+});
+
+document.querySelector('#stop2').addEventListener('click', ()=> {
+    p2stopped = true;
+
+    player2.stop()
+    document.querySelector('#stop2').className = 'ui button active';
+    document.querySelector('#start2').className = 'ui button';
+});
+
+
+document.querySelector('#stop3').addEventListener('click', ()=> {
+    p3stopped = true;
+
+    player3.stop()
+    document.querySelector('#stop3').className = 'ui button active';
+    document.querySelector('#start3').className = 'ui button';
+});
+
+document.querySelector('#stop4').addEventListener('click', ()=> {
+    p3stopped = true;
+
+    player4.stop();
+    document.querySelector('#stop4').className = 'ui button active';
+    document.querySelector('#start4').className = 'ui button';
+});
 
 document.querySelector('#mute1').addEventListener('click', ()=> {
   if(player1isMuted){
       player.mute = false;
       player1isMuted = false;
+      document.querySelector('#mute1').className = 'mini ui black basic button';
+
 
   } else {
       player.mute = true;
       player1isMuted = true;
+      document.querySelector('#mute1').className = 'mini ui red basic button';
+
   }
   
 }, false)
@@ -304,6 +423,7 @@ document.querySelector('#mute2').addEventListener('click', ()=> {
   } else {
       player2.mute = true;
       player2isMuted = true;
+      
   }
   
 }, false)
@@ -336,28 +456,46 @@ document.querySelector('#muteAll').addEventListener('click', ()=> {
     if(muteAll){
         Tone.Destination.mute = false;
         muteAll = false;
-  
+        document.querySelector('#muteAll').className = 'mini ui black basic button';
+
     } else {
         Tone.Destination.mute = true;
         muteAll = true;
+        document.querySelector('#muteAll').className = 'mini ui red basic button';
+
     }
     
   }, false)
 
 
-  document.querySelector('#distortion1').addEventListener('click', ()=> {
-    if(distortion1on){
+  document.querySelector('#reverb1').addEventListener('click', ()=> {
+    if(reverb1on){
         player.disconnect(reverb)
-        distortion1on = false;
-        document.querySelector('#distortion1').className = 'mini ui black basic button';
+        reverb1on = false;
+        document.querySelector('#reverb1').className = 'mini ui black basic button';
   
     } else {
         player.connect(reverb)
-        distortion1on = true;
-        document.querySelector('#distortion1').className = 'mini ui inverted blue button';
+        reverb1on = true;
+        document.querySelector('#reverb1').className = 'mini ui inverted blue button';
     }
     
   }, false)
+
+  document.querySelector('#reverb2').addEventListener('click', ()=> {
+    if(reverb2on){
+        player2.disconnect(reverb2)
+        reverb2on = false;
+        document.querySelector('#reverb2').className = 'mini ui black basic button';
+  
+    } else {
+        player2.connect(reverb2)
+        reverb2on = true;
+        document.querySelector('#reverb2').className = 'mini ui inverted blue button';
+    }
+    
+  }, false)
+
 
 // document.querySelector('#p1loopLength').addEventListener('input', (e)=> {
 //   let val = e.currentTarget.value;
@@ -382,8 +520,13 @@ document.querySelector('#reloop2').addEventListener('click', ()=> {
   p2loopStart = Math.floor(Math.random() * 101) + 1;
   colorAccentHue2 = Math.floor(Math.random() * 250) + 1;
   sVal2 = Math.floor(Math.random() * 100) + 1;
-  player2.loopStart = p2loopStart;
-  player2.loopEnd = p2loopStart + 3;
+  console.log('reloop p2loopStart');
+  p2stopped = false;
+  console.log(p2loopStart);
+  player2.stop();
+  player2.start(0, p1loopStart);
+//   player2.loopStart = p2loopStart;
+//   player2.loopEnd = p2loopStart + 3;
 }, false)
 
 document.querySelector('#reloop3').addEventListener('click', ()=> {
@@ -457,9 +600,21 @@ document.querySelector('#loopLength1').addEventListener('input', (e)=> {
     p1loopLength = val;
     console.log(p1loopLength);
     schedulePattern1();
+    schedulePattern2();
+
 
   }, false)
 
+  document.querySelector('#loopLength2').addEventListener('input', (e)=> {
+    let val = e.currentTarget.value;
+    document.querySelector('#loopLength2val').value = val;
+    Tone.Transport.cancel(0);
+    p2loopLength = val;
+    console.log(p2loopLength);
+    schedulePattern1();
+    schedulePattern2();
+
+  }, false)
 
 
 
@@ -555,6 +710,19 @@ Tone.Transport.scheduleRepeat((time) => {
     }
 }, p1loopLength);
 
+Tone.Transport.scheduleRepeat((time) => {
+	// use the callback time to schedule events
+    // player.restart(time);
+    // player.unsync().stop().sync().start(p1loopStart, 0)
+    if(p2stopped == false){
+        player2.stop();
+        player2.start(0, p2loopStart);
+        console.log('restart p2loopStart');
+        console.log(p2loopLength);
+
+    }
+}, p2loopLength);
+
 let schedulePattern1 = () => {
     Tone.Transport.scheduleRepeat((time) => {
         // use the callback time to schedule events
@@ -570,3 +738,21 @@ let schedulePattern1 = () => {
         }
     }, p1loopLength);
 }
+
+let schedulePattern2 = () => {
+    Tone.context.transport.scheduleRepeat((time) => {
+        // use the callback time to schedule events
+        // player.restart(time);
+        // player.unsync().stop().sync().start(p1loopStart, 0)
+
+        if(p1stopped == false){
+            player2.stop();
+            player2.start(0, p2loopStart);
+            console.log('restart p2loopStart');
+            console.log(p2loopLength);
+    
+        }
+    }, p2loopLength);
+}
+
+console.log(Tone.Transport);

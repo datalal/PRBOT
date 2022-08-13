@@ -14,6 +14,7 @@
   padding: 20px;
   border-radius: 5px;
   margin: 3px;
+  /* max-width: 24%; */
 }
 
 /* On screens that are 992px wide or less, go from four columns to two columns */
@@ -63,4 +64,28 @@
     height: 25px; /* Slider handle height */
     background: #04AA6D; /* Green background */
     cursor: pointer; /* Cursor on hover */
+  }
+
+  #reloop1:active{
+    /* color: #04AA6D !important; */
+    background-color: #04AA6D !important;
+
+  }
+
+  #reloop2:active{
+    /* color: #04AA6D !important; */
+    background-color: #04AA6D !important;
+
+  }
+
+  #reloop3:active{
+    /* color: #04AA6D !important; */
+    background-color: #04AA6D !important;
+
+  }
+
+  #reloop4:active{
+    /* color: #04AA6D !important; */
+    background-color: #04AA6D !important;
+
   }

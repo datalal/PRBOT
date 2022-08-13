@@ -38,28 +38,54 @@
     <button class="mini ui black basic button" id="reloop1" disabled>reloop</button>
 
     <button class="mini ui black basic button" id="reverse1" disabled>reverse</button>
-    <button class="mini ui black basic button" id="distortion1" disabled>reverb</button>&nbsp;
+    <button class="mini ui black basic button" id="reverb1" disabled>reverb</button>&nbsp;
 
 <!-- loopLength: <input type="range" id="p1loopLength" value="2" min="1" max="8" step="1"><output id="p1loopLengthOutput">1</output> -->
 <br />
 <br />
-playbackRate: <input class="slider" type="range" id="pbrS" value="1" min="0" max="2" step="0.01"><output id="pbrO">1</output>
+<h3>playbackRate:</h3> <input class="slider" type="range" id="pbrS" value="1" min="0" max="2" step="0.01"><output id="pbrO">1</output>
 
  <br />
-Volume: <input class="slider" type="range" id="p1Volume" value="1" min="-50" max="15" step="1"><output id="p1VolOut">1</output>
+<h3>Volume:</h3> <input class="slider" type="range" id="p1Volume" value="1" min="-50" max="15" step="1"><output id="p1VolOut">1</output>
 <br />
-Loop Length: <input class="slider" type="range" id="loopLength1" value="3" min="1" max="10" step="1"><output id="loopLength1val">1</output>
+<h3>Loop Length:</h3> <input class="slider" type="range" id="loopLength1" value="3" min="1" max="10" step="1"><output id="loopLength1val">1</output>
   </div>
   
   <div class="column" id="column2" style="border:3px solid #000;">
     <h2>Player 2</h2>
         <input  id="audioFileChooser" type="file" onchange="readFile2(this.files);">
-<br />
+        <span id="loading2">loading...</span><br />
+
     <br />
-    <button id="start2" id="column3" disabled>start</button><button id="stop2" disabled>stop</button><button id="mute2" disabled>mute</button><button id="reloop2" disabled>reloop</button>&nbsp;<span id="loading2">loading...</span><br />
-playbackRate: <input type="range" id="pbrS2" value="1" min="0" max="2" step="0.01"><output id="pbr2">1</output>
+    <br />
+    <div class="ui icon  buttons">
+        <button id="start2" class="ui button" disabled>
+            <i class="play icon"></i>
+        </button>
+    </div>
+    <div class="ui icon  buttons">
+        <button id="stop2"  class="ui button" disabled>
+            <i class="stop icon"></i>
+        </button>
+    </div>
+
+    <br />
+    <br />
+
+    <button id="mute2" class="mini ui black basic button" disabled>mute</button>
+    <button id="reloop2" class="mini ui black basic button" disabled>reloop</button>&nbsp;
+
+    <button class="mini ui black basic button" id="reverse2" disabled>reverse</button>
+    <button class="mini ui black basic button" id="reverb2" disabled>reverb</button>&nbsp;
+<br />
+<br />
+
+<h3>playbackRate:</h3> <input class="slider" type="range" id="pbrS2" value="1" min="0" max="2" step="0.01"><output id="pbr2">1</output>
  <br />
-Volume: <input type="range" id="p2Volume" value="1" min="-50" max="15" step="1"><output id="p2VolOut">1</output>
+ <h3>Volume:</h3> <input class="slider" type="range" id="p2Volume" value="1" min="-50" max="15" step="1"><output id="p2VolOut">1</output>
+
+<h3>Loop Length:</h3> <input class="slider" type="range" id="loopLength2" value="3" min="1" max="10" step="1"><output id="loopLength2val">1</output>
+
   </div>
   
   <div class="column" style="border:3px solid #000;">
@@ -85,6 +111,6 @@ Volume: <input type="range" id="p4Volume" value="1" min="-50" max="15" step="1">
   </div>
 </div>
 <br />
-<button id="muteAll" disabled>Mute ALL</button>
+<button id="muteAll" class="mini ui black basic button" disabled>Mute ALL</button>
 
 <script src="prbot.js"></script>

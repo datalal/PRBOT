@@ -96,7 +96,7 @@ PURE RAVE ONLINE v0.1
         <br />
 <br />
     <br />
-    <div class="ui icon  buttons">
+    <div class="ui icon buttons">
         <button id="start3" class="ui button" disabled>
             <i class="play icon"></i>
         </button>
@@ -127,12 +127,34 @@ PURE RAVE ONLINE v0.1
   <div class="column" id="column4" style="border:3px solid #000;">
     <h2>Player 4</h2>
         <input  id="audioFileChooser" type="file" onchange="readFile4(this.files);">
+        <span id="loading4">loading...</span><br />
+
 <br />
     <br />
-    <button id="start4" disabled>start</button><button id="stop4" disabled>stop</button><button id="mute4" disabled>mute</button><button id="reloop4" disabled>reloop</button>&nbsp;<span id="loading4">loading...</span><br />
-    Pitch: <input type="range" id="pbrS4" value="1" min="0" max="2" step="0.01"><output id="pbr4">1</output>
+    <div class="ui icon buttons">
+        <button id="start4" class="ui button"  disabled>
+            <i class="play icon"></i>
+        </button>
+    </div>
+    <div class="ui icon buttons">
+        <button id="stop4" class="ui button" disabled>
+            <i class="stop icon"></i>
+        </button>
+    </div>
+    <br />
+    <br />
+    <button id="mute4" class="mini ui black basic button" disabled>mute</button>
+    <button id="reloop4" class="mini ui black basic button" disabled>reloop</button>&nbsp;
+
+    <button class="mini ui black basic button" id="reverse4" disabled>reverse</button>
+    <button class="mini ui black basic button" id="reverb4" disabled>reverb</button>&nbsp;
+
+    <h3>Pitch:</h3> <input class="slider" type="range" id="pbrS4" value="1" min="0" max="2" step="0.01"><output id="pbr4">1</output>
  <br />
-Volume: <input type="range" id="p4Volume" value="1" min="-50" max="15" step="1"><output id="p4VolOut">1</output>
+ <h3>Volume:</h3> <input class="slider" type="range" id="p4Volume" value="1" min="-50" max="15" step="1"><output id="p4VolOut">1</output>
+
+<h3>Loop Length:</h3> <input class="slider" type="range" id="loopLength4" value="3" min="1" max="10" step="1"><output id="loopLength4val">1</output>
+
   </div>
 </div>
 <br />

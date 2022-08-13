@@ -419,11 +419,14 @@ document.querySelector('#mute2').addEventListener('click', ()=> {
   if(player2isMuted){
       player2.mute = false;
       player2isMuted = false;
+      document.querySelector('#mute2').className = 'mini ui black basic button';
+
 
   } else {
       player2.mute = true;
       player2isMuted = true;
-      
+      document.querySelector('#mute2').className = 'mini ui red basic button';
+
   }
   
 }, false)
@@ -432,10 +435,14 @@ document.querySelector('#mute3').addEventListener('click', ()=> {
   if(player3isMuted){
       player3.mute = false;
       player3isMuted = false;
+      document.querySelector('#mute3').className = 'mini ui black basic button';
+
 
   } else {
       player3.mute = true;
       player3isMuted = true;
+      document.querySelector('#mute3').className = 'mini ui red basic button';
+
   }
   
 }, false)
@@ -444,10 +451,14 @@ document.querySelector('#mute4').addEventListener('click', ()=> {
   if(player4isMuted){
       player4.mute = false;
       player4isMuted = false;
+      document.querySelector('#mute4').className = 'mini ui black basic button';
+
 
   } else {
       player4.mute = true;
       player4isMuted = true;
+      document.querySelector('#mute4').className = 'mini ui black basic button';
+
   }
   
 }, false)
@@ -496,6 +507,33 @@ document.querySelector('#muteAll').addEventListener('click', ()=> {
     
   }, false)
 
+  document.querySelector('#reverb3').addEventListener('click', ()=> {
+    if(reverb3on){
+        player3.disconnect(reverb3)
+        reverb2on = false;
+        document.querySelector('#reverb2').className = 'mini ui black basic button';
+  
+    } else {
+        player3.connect(reverb2)
+        reverb3on = true;
+        document.querySelector('#reverb3').className = 'mini ui inverted blue button';
+    }
+    
+  }, false)
+
+  document.querySelector('#reverb4').addEventListener('click', ()=> {
+    if(reverb4on){
+        player4.disconnect(reverb4)
+        reverb4on = false;
+        document.querySelector('#reverb4').className = 'mini ui black basic button';
+  
+    } else {
+        player4.connect(reverb4)
+        reverb4on = true;
+        document.querySelector('#reverb4').className = 'mini ui inverted blue button';
+    }
+    
+  }, false)
 
 // document.querySelector('#p1loopLength').addEventListener('input', (e)=> {
 //   let val = e.currentTarget.value;
@@ -522,7 +560,7 @@ document.querySelector('#reloop2').addEventListener('click', ()=> {
   sVal2 = Math.floor(Math.random() * 100) + 1;
   console.log('reloop p2loopStart');
   p2stopped = false;
-  console.log(p2loopStart);
+//   console.log(p2loopStart);
   player2.stop();
   player2.start(0, p1loopStart);
 //   player2.loopStart = p2loopStart;
@@ -533,16 +571,19 @@ document.querySelector('#reloop3').addEventListener('click', ()=> {
   p3loopStart = Math.floor(Math.random() * 101) + 1;
   colorAccentHue3 = Math.floor(Math.random() * 250) + 1;
   sVal3 = Math.floor(Math.random() * 100) + 1;
-  player3.loopStart = p3loopStart;
-  player3.loopEnd = p3loopStart + 3;
+  p3stopped = false;
+//   console.log(p2loopStart);
+  player3.stop();
+  player3.start(0, p3loopStart);
 }, false)
 
 document.querySelector('#reloop4').addEventListener('click', ()=> {
   p4loopStart = Math.floor(Math.random() * 101) + 1;
   colorAccentHue4 = Math.floor(Math.random() * 250) + 1;
   sVal4 = Math.floor(Math.random() * 100) + 1;
-  player4.loopStart = p4loopStart;
-  player4.loopEnd = p4loopStart + 3;
+  p4stopped = false;
+  player4.stop();
+  player4.start(0, p4loopStart);
 }, false)
 
 document.querySelector('#pbrS').addEventListener('input', (e)=> {
@@ -601,8 +642,8 @@ document.querySelector('#loopLength1').addEventListener('input', (e)=> {
     console.log(p1loopLength);
     schedulePattern1();
     schedulePattern2();
-
-
+    schedulePattern3();
+    schedulePattern4();
   }, false)
 
   document.querySelector('#loopLength2').addEventListener('input', (e)=> {
@@ -613,94 +654,42 @@ document.querySelector('#loopLength1').addEventListener('input', (e)=> {
     console.log(p2loopLength);
     schedulePattern1();
     schedulePattern2();
+    schedulePattern3();
+    schedulePattern4();
+  }, false)
 
+  document.querySelector('#loopLength3').addEventListener('input', (e)=> {
+    let val = e.currentTarget.value;
+    document.querySelector('#loopLength3val').value = val;
+    Tone.Transport.cancel(0);
+    p3loopLength = val;
+    schedulePattern1();
+    schedulePattern2();
+    schedulePattern3();
+    schedulePattern4();
+  }, false)
+
+  document.querySelector('#loopLength4').addEventListener('input', (e)=> {
+    let val = e.currentTarget.value;
+    document.querySelector('#loopLength4val').value = val;
+    Tone.Transport.cancel(0);
+    p4loopLength = val;
+    schedulePattern1();
+    schedulePattern2();
+    schedulePattern3();
+    schedulePattern4();
   }, false)
 
 
 
-// player.loopStart = p1loopStart;
-// player2.loopStart = p2loopStart;
-// player3.loopStart = p3loopStart;
-// player4.loopStart = p4loopStart;
-
-// player.loopEnd = p1loopStart + 3;
-// player2.loopEnd = p2loopStart + 3;
-// player3.loopEnd = p3loopStart + 3;
-// player4.loopEnd = p4loopStart + 3;
-
-// console.log(player.state);
 var lVal1 = 20;
 var lVal2 = 20;
 var lVal3 = 20;
 var lVal4 = 20;
 
-// setInterval(() => {
-//     // let colorAccentHue = "240";
-//     lVal1 = lVal1 + 2;
-//     lVal2 = lVal2 + 2;
-//     lVal3 = lVal3 + 2;
-//     lVal4 = lVal4 + 2;
-
-//     if(lVal1 > 55){
-//         lVal1 = 20;
-//     }
-
-//     if(lVal2 > 55){
-//         lVal2 = 20;
-//     }
-
-//     if(lVal3 > 55){
-//         lVal3 = 20;
-//     }
-
-//     if(lVal4 > 55){
-//         lVal4 = 20;
-//     }
-
-
-//     // document.querySelector('#column1').style.backgroundColor = `hsl(${colorAccentHue1}, ${sVal1}%, ${lVal1}%)`
-//     // document.querySelector('#column2').style.backgroundColor = `hsl(${colorAccentHue2}, ${sVal2}%, ${lVal2}%)`
-//     // document.querySelector('#column3').style.backgroundColor = `hsl(${colorAccentHue3}, ${sVal3}%, ${lVal3}%)`
-//     // document.querySelector('#column4').style.backgroundColor = `hsl(${colorAccentHue4}, ${sVal4}%, ${lVal4}%)`
-
-
-//     console.log("blockTime: ", Tone.Destination.blockTime);
-//     console.log("progress", Tone.Transport.progress);
-//     console.log("sampleTime", Tone.Transport.sampleTime);
-
-//     // console.log(player.position);
-//     // console.log(buffer);
-//     // console.log(player.context.state);
-
-// }, 400);
-
-// Tone.Transport.scheduleRepeat((time) => {
-//     console.log("scheduled");
-
-// }, "1m");
-
-// var loop = new Tone.Loop(function(time){
-// 	//triggered every eighth note. 
-//     player.restart(0);
-// 	console.log("3 sec"); 
-//     console.log(time);
-//     console.log('restart p1loopStart');
-
-//     console.log(p1loopStart);
-// }, 3).sync().start(0);
-
-// var loop2 = new Tone.Loop(function(time){
-// 	//triggered every eighth note. 
-//     player2.restart();
-// 	console.log("loop2 3 sec"); 
-//     console.log(time);
-
-// }, p2loopLength).sync(0).start();
 
 Tone.Transport.scheduleRepeat((time) => {
 	// use the callback time to schedule events
-    // player.restart(time);
-    // player.unsync().stop().sync().start(p1loopStart, 0)
     if(p1stopped == false){
         player.stop();
         player.start(0, p1loopStart);
@@ -713,7 +702,6 @@ Tone.Transport.scheduleRepeat((time) => {
 Tone.Transport.scheduleRepeat((time) => {
 	// use the callback time to schedule events
     // player.restart(time);
-    // player.unsync().stop().sync().start(p1loopStart, 0)
     if(p2stopped == false){
         player2.stop();
         player2.start(0, p2loopStart);
@@ -753,6 +741,38 @@ let schedulePattern2 = () => {
     
         }
     }, p2loopLength);
+}
+
+let schedulePattern3 = () => {
+    Tone.context.transport.scheduleRepeat((time) => {
+        // use the callback time to schedule events
+        // player.restart(time);
+        // player.unsync().stop().sync().start(p1loopStart, 0)
+
+        if(p1stopped == false){
+            player3.stop();
+            player3.start(0, p2loopStart);
+            // console.log('restart p3loopStart');
+            // console.log(p3loopLength);
+    
+        }
+    }, p3loopLength);
+}
+
+let schedulePattern4 = () => {
+    Tone.context.transport.scheduleRepeat((time) => {
+        // use the callback time to schedule events
+        // player.restart(time);
+        // player.unsync().stop().sync().start(p1loopStart, 0)
+
+        if(p1stopped == false){
+            player4.stop();
+            player4.start(0, p2loopStart);
+            // console.log('restart p4loopStart');
+            // console.log(p4loopLength);
+    
+        }
+    }, p4loopLength);
 }
 
 console.log(Tone.Transport);

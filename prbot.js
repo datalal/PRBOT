@@ -18,6 +18,8 @@ context3.name = "Context3";
 context4.name = "Context4";
 context5.name = "Context5";
 
+let meter1val, meter2val, meter3val, meter4val;
+
 function readFile1(files) {
 	var fileReader = new FileReader();
 	fileReader.readAsArrayBuffer(files[0]);
@@ -136,6 +138,25 @@ const reverb4 = new Tone.Reverb({
     decay: 5
 }).toDestination();
 
+const meter1 = new Tone.Meter({
+    context: context2,
+    normalRange: false
+});
+
+const meter2 = new Tone.Meter({
+    context: context3,
+});
+
+
+const meter3 = new Tone.Meter({
+    context: context4,
+});
+
+const meter4 = new Tone.Meter({
+    context: context5,
+});
+
+
 // var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 // let player2 = new Tone.Player({
 //     url: mp3,
@@ -151,6 +172,7 @@ let player = new Tone.Player({
         document.querySelectorAll('button').forEach((e)=>e.disabled = false)
         document.querySelector('#loading').textContent = '';
         document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+
     }
 
 }).toDestination();
@@ -781,7 +803,7 @@ document.querySelector('#stop3').addEventListener('click', ()=> {
 });
 
 document.querySelector('#stop4').addEventListener('click', ()=> {
-    p3stopped = true;
+    p4stopped = true;
 
     player4.stop();
     context4.transport.cancel(0);
@@ -1160,7 +1182,7 @@ let schedulePattern2 = () => {
         // player.restart(time);
         // player.unsync().stop().sync().start(p1loopStart, 0)
 
-        if(p1stopped == false){
+        if(p2stopped == false){
             player2.stop();
             player2.start(0, p2loopStart);
             console.log('restart p2loopStart');
@@ -1176,7 +1198,7 @@ let schedulePattern3 = () => {
         // player.restart(time);
         // player.unsync().stop().sync().start(p1loopStart, 0)
 
-        if(p1stopped == false){
+        if(p3stopped == false){
             player3.stop();
             player3.start(0, p3loopStart);
             console.log('restart p3loopStart');
@@ -1192,7 +1214,7 @@ let schedulePattern4 = () => {
         // player.restart(time);
         // player.unsync().stop().sync().start(p1loopStart, 0)
 
-        if(p1stopped == false){
+        if(p4stopped == false){
             player4.stop();
             player4.start(0, p4loopStart);
             console.log('restart p4loopStart');
@@ -1202,4 +1224,58 @@ let schedulePattern4 = () => {
     }, p4loopLength);
 }
 
-console.log(context2.destination.mute);
+player.connect(meter1);
+player2.connect(meter2);
+player3.connect(meter3);
+player4.connect(meter4);
+
+setInterval(() => {
+    meter1val = meter1.getValue();
+    meter2val = meter2.getValue();
+    meter3val = meter3.getValue();
+    meter4val = meter4.getValue();
+
+    if(p1stopped === false){
+        meter1val = meter1.getValue();
+        document.querySelector('#meter1').textContent = meter1val;
+
+    } else {
+        document.querySelector('#meter1').textContent = '';
+
+    }
+
+    if(p2stopped === false){
+        meter2val = meter2.getValue();
+        document.querySelector('#meter2').textContent = meter2val;
+
+    } else {
+        document.querySelector('#meter2').textContent = '';
+
+    }
+
+    if(p3stopped === false){
+        meter3val = meter3.getValue();
+        document.querySelector('#meter3').textContent = meter3val;
+
+    } else {
+        document.querySelector('#meter3').textContent = '';
+
+    }
+
+
+    if(p4stopped === false){
+        meter4val = meter4.getValue();
+        document.querySelector('#meter4').textContent = meter4val;
+
+    } else {
+        document.querySelector('#meter4').textContent = '';
+
+    }
+
+
+    // document.querySelector('#meter1').textContent = meter1val;
+    // document.querySelector('#meter1').insertAdjacentHTML('beforeend',meter1val);
+
+    }, 100);
+
+console.log(meter1);

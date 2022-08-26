@@ -1,10 +1,22 @@
 // let buffer = new Tone.Buffer();
 
+
 Tone.context.resume();
 
 const context2 = new Tone.Context();
 const context3 = new Tone.Context();
 const context4 = new Tone.Context();
+const context5 = new Tone.Context();
+
+context2.resume();
+context3.resume();
+context4.resume();
+context5.resume();
+
+context2.name = "Context2";
+context3.name = "Context3";
+context4.name = "Context4";
+context5.name = "Context5";
 
 function readFile1(files) {
 	var fileReader = new FileReader();
@@ -69,7 +81,7 @@ function readFile4(files) {
       binaryData.push(files[0]);
       var blob = window.URL.createObjectURL(new Blob(binaryData, {type: "audio/mpeg"}));
     
- player4.load(blob, ()=> {
+player4.load(blob, ()=> {
 document.querySelectorAll('button').forEach((e)=>e.disabled = false)
   document.querySelector('#loading4').textContent = '';
   document.querySelector('#loading4').insertAdjacentHTML('beforeend','loaded');
@@ -107,10 +119,22 @@ var reverb2on = false;
 var reverb3on = false;
 var reverb4on = false;
 
-const reverb = new Tone.Reverb(5).toDestination();
-const reverb2 = new Tone.Reverb(5).toDestination();
-const reverb3 = new Tone.Reverb(5).toDestination();
-const reverb4 = new Tone.Reverb(5).toDestination();
+const reverb = new Tone.Reverb({
+    context: context2,
+    decay: 5
+}).toDestination();
+const reverb2 = new Tone.Reverb({
+    context: context3,
+    decay: 5
+}).toDestination();
+const reverb3 = new Tone.Reverb({
+    context: context4,
+    decay: 5
+}).toDestination();
+const reverb4 = new Tone.Reverb({
+    context: context5,
+    decay: 5
+}).toDestination();
 
 // var colorAccentHue1, colorAccentHue2, colorAccentHue3, colorAccentHue4;
 // let player2 = new Tone.Player({
@@ -119,29 +143,68 @@ const reverb4 = new Tone.Reverb(5).toDestination();
 //     autostart: true
 // });
 
-let player = new Tone.Player(mp3, ()=> {
- document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-  document.querySelector('#loading').textContent = '';
-  document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+
+let player = new Tone.Player({
+    url: mp3,
+    context: context2,
+    onload: ()=>{
+        document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+        document.querySelector('#loading').textContent = '';
+        document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+    }
+
 }).toDestination();
 
-let player2 = new Tone.Player(mp3, ()=> {
-    document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-     document.querySelector('#loading2').textContent = '';
-     document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
+let player2 = new Tone.Player({
+    url: mp3,
+    context: context3,
+    onload: ()=>{
+        document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+        document.querySelector('#loading').textContent = '';
+        document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+    }
+
 }).toDestination();
 
-let player3 = new Tone.Player(mp3, ()=> {
-document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-  document.querySelector('#loading3').textContent = '';
-  document.querySelector('#loading3').insertAdjacentHTML('beforeend','loaded');
+let player3 = new Tone.Player({
+    url: mp3,
+    context: context4,
+    onload: ()=>{
+        document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+        document.querySelector('#loading').textContent = '';
+        document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+    }
+
 }).toDestination();
 
-let player4 = new Tone.Player(mp3, ()=> {
-document.querySelectorAll('button').forEach((e)=>e.disabled = false)
-  document.querySelector('#loading4').textContent = '';
-  document.querySelector('#loading4').insertAdjacentHTML('beforeend','loaded');
+let player4 = new Tone.Player({
+    url: mp3,
+    context: context5,
+    onload: ()=>{
+        document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+        document.querySelector('#loading').textContent = '';
+        document.querySelector('#loading').insertAdjacentHTML('beforeend','loaded');
+    }
+
 }).toDestination();
+
+// let player2 = new Tone.Player(mp3, ()=> {
+//     document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+//      document.querySelector('#loading2').textContent = '';
+//      document.querySelector('#loading2').insertAdjacentHTML('beforeend','loaded');
+// }).toDestination();
+
+// let player3 = new Tone.Player(mp3, ()=> {
+// document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+//   document.querySelector('#loading3').textContent = '';
+//   document.querySelector('#loading3').insertAdjacentHTML('beforeend','loaded');
+// }).toDestination();
+
+// let player4 = new Tone.Player(mp3, ()=> {
+// document.querySelectorAll('button').forEach((e)=>e.disabled = false)
+//   document.querySelector('#loading4').textContent = '';
+//   document.querySelector('#loading4').insertAdjacentHTML('beforeend','loaded');
+// }).toDestination();
 
 player.playbackRate = 1;
 player2.playbackRate = 1;
@@ -157,27 +220,68 @@ var sVal1;
 
 
 document.querySelector('#start').addEventListener('click',  (time)=> {
-    console.log(Tone.context.state);
-    if( Tone.context.state === 'suspended') {
-        console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){Tone.Transport.start();}
+    console.log(context2.state);
+    if( context2.state === 'suspended') {
+        console.log(context2.state);
+        context2.resume();
+        if(context2.transport.state === "stopped"){context2.transport.start();}
         player.start(0, p1loopStart);
+        schedulePattern1();
 
         document.querySelector('#start').className = 'ui button active';
         document.querySelector('#stop').className = 'ui button';
 
     } else {
-        console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){Tone.Transport.start();}
+        console.log(context2.state);
+        context2.resume();
+        if(context2.transport.state === "stopped"){context2.transport.start();}
         player.start(0, p1loopStart);
+        schedulePattern1();
 
         document.querySelector('#start').className = 'ui button active';
         document.querySelector('#stop').className = 'ui button';    
 
 
     }
+
+    
+
+    colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
+    sVal1 = Math.floor(Math.random() * 100) + 1;
+    p1stopped = false;
+    console.log(p1stopped);
+
+
+});
+
+document.querySelector('#start').addEventListener('mousedown',  (time)=> {
+    console.log(context2.state);
+    if( context2.state === 'suspended') {
+        console.log(context2.state);
+        context2.resume();
+        if(context2.transport.state === "stopped"){context2.transport.start();}
+        player.start(0, p1loopStart);
+        schedulePattern1();
+
+
+        document.querySelector('#start').className = 'ui button active';
+        document.querySelector('#stop').className = 'ui button';
+
+    } else {
+        console.log(context2.state);
+        context2.resume();
+        if(context2.transport.state === "stopped"){context2.transport.start();}
+        player.start(0, p1loopStart);
+        schedulePattern1();
+
+
+        document.querySelector('#start').className = 'ui button active';
+        document.querySelector('#stop').className = 'ui button';    
+
+
+    }
+
+    
 
     colorAccentHue1 = Math.floor(Math.random() * 250) + 1;
     sVal1 = Math.floor(Math.random() * 100) + 1;
@@ -189,24 +293,27 @@ document.querySelector('#start').addEventListener('click',  (time)=> {
 
 
 document.querySelector('#start').addEventListener('touchstart',  (time)=> {
-    console.log(Tone.context.state);
-    if( Tone.context.state === 'suspended') {
-        console.log(Tone.context.state);
+    console.log(context2.state);
+    if( context2.state === 'suspended') {
+        console.log(context2.state);
         // Tone.context2.resume();
-        if(Tone.Transport.state === "stopped"){Tone.Transport.start();}
+        if(context2.transport.state === "stopped"){Tone.Transport.start();}
 
         player.start(0, p1loopStart);
-        // Tone.Transport.start();       
+        // Tone.Transport.start(); 
+        schedulePattern1();
+      
 
         document.querySelector('#start').className = 'ui button active';
 
     } else {
         console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){Tone.Transport.start();}
+        context2.resume();
+        if(context2.transport.state === "stopped"){Tone.Transport.start();}
 
         // Tone.Transport.start();       
          player.start(0, p1loopStart);
+         schedulePattern1();
 
 2
     }
@@ -224,26 +331,68 @@ document.querySelector('#start').addEventListener('touchstart',  (time)=> {
 
 
 document.querySelector('#start2').addEventListener('click',  (time)=> {
-    console.log(Tone.context.state);
-    if( Tone.context.state === 'suspended') {
+    console.log(context3.state);
+    if( context3.state === 'suspended') {
         // console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){Tone.Transport.start();}
+        context3.resume();
+        if(context3.transport.state === "stopped"){context3.transport.start();}
         player2.start(0, p2loopStart);
-       
+        context2.transport.cancel(0);
+
+        schedulePattern2();
+
 
         document.querySelector('#start2').className = 'ui button active';
         document.querySelector('#stop2').className = 'ui button';
 
     } else {
-        // console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){Tone.Transport.start();}
+        console.log(Tone.context.state);
+        context3.resume();
+        if(context3.transport.state === "stopped"){context3.transport.start();}
         player2.start(0, p2loopStart);
+        context2.transport.cancel(0);
+
+        schedulePattern2();
 
         document.querySelector('#start2').className = 'ui button active';
         document.querySelector('#stop2').className = 'ui button';    
 
+    }
+
+    colorAccentHue2 = Math.floor(Math.random() * 250) + 1;
+    sVal2 = Math.floor(Math.random() * 100) + 1;
+    p2stopped = false;
+    console.log(p2stopped);
+
+
+});
+
+document.querySelector('#start2').addEventListener('mousedown',  (time)=> {
+    console.log(context3.state);
+    if( context3.state === 'suspended') {
+        console.log(context3.state);
+        context3.resume();
+        if(context3.transport.state === "stopped"){context3.transport.start();}
+        player2.start(0, p2loopStart);
+        context2.transport.cancel(0);
+
+        schedulePattern2();
+
+
+        document.querySelector('#start2').className = 'ui button active';
+        document.querySelector('#stop2').className = 'ui button';
+
+    } else {
+        console.log(context3.state);
+        context3.resume();
+        if(context3.transport.state === "stopped"){context3.transport.start();}
+        player2.start(0, p2loopStart);
+        context2.transport.cancel(0);
+
+        schedulePattern2();
+
+        document.querySelector('#start2').className = 'ui button active';
+        document.querySelector('#stop2').className = 'ui button';    
 
     }
 
@@ -257,15 +406,18 @@ document.querySelector('#start2').addEventListener('click',  (time)=> {
 
 
 document.querySelector('#start2').addEventListener('touchstart',  (time)=> {
-    console.log(Tone.context.state);
-    if( Tone.context.state === 'suspended') {
+    console.log(context3.state);
+    if( context3.state === 'suspended') {
         console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){
-            Tone.Transport.start();
+        context3.resume();
+        if(context3.transport.state === "stopped"){
+            context3.transport.start();
         }
 
         player2.start(0, p2loopStart);
+        context2.transport.cancel(0);
+
+        schedulePattern2();
 
         // schedulePattern2();
 
@@ -274,20 +426,21 @@ document.querySelector('#start2').addEventListener('touchstart',  (time)=> {
         document.querySelector('#start2').className = 'ui button active';
 
     } else {
-        console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){
-            Tone.Transport.start();
+        console.log(context3.state);
+        context3.resume();
+        if(context3.transport.state === "stopped"){
+            context3.transport.start();
         }
 
         player2.start(0, p2loopStart);
+        context2.transport.cancel(0);
 
-        // schedulePattern2();
-        // player.start(0, p1loopStart);
+        schedulePattern2();
+
+
 
 
     }
-    // await player.start(0, p1loopStart);
 
     colorAccentHue2 = Math.floor(Math.random() * 250) + 1;
     sVal2 = Math.floor(Math.random() * 100) + 1;
@@ -300,22 +453,28 @@ document.querySelector('#start2').addEventListener('touchstart',  (time)=> {
 });
 
 document.querySelector('#start3').addEventListener('click',  (time)=> {
-    console.log(Tone.context.state);
-    if( Tone.context.state === 'suspended') {
+    console.log(context4.state);
+    if( context4.state === 'suspended') {
         // console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped") {Tone.Transport.start();}
+        context4.resume();
+        if(context4.transport.state === "stopped") {context4.transport.start();}
         player3.start(0, p3loopStart);
-       
+        context4.transport.cancel(0);
+
+        schedulePattern3();
+
 
         document.querySelector('#start3').className = 'ui button active';
         document.querySelector('#stop3').className = 'ui button';
 
     } else {
         // console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped") {Tone.Transport.start();}
+        context4.resume();
+        if(context4.transport.state === "stopped") {context4.transport.start();}
         player3.start(0, p3loopStart);
+        context4.transport.cancel(0);
+
+        schedulePattern3();
 
         document.querySelector('#start3').className = 'ui button active';
         document.querySelector('#stop3').className = 'ui button';    
@@ -326,22 +485,62 @@ document.querySelector('#start3').addEventListener('click',  (time)=> {
     colorAccentHue3 = Math.floor(Math.random() * 250) + 1;
     sVal3 = Math.floor(Math.random() * 100) + 1;
     p3stopped = false;
-    // console.log(p3stopped);
+    console.log(p3stopped);
+
+
+});
+
+document.querySelector('#start3').addEventListener('mousedown',  (time)=> {
+    console.log(context4.state);
+    if( context4.state === 'suspended') {
+        // console.log(Tone.context.state);
+        context4.resume();
+        if(context4.transport.state === "stopped") {context4.transport.start();}
+        player3.start(0, p3loopStart);
+        context4.transport.cancel(0);
+
+        schedulePattern3();
+
+        document.querySelector('#start3').className = 'ui button active';
+        document.querySelector('#stop3').className = 'ui button';
+
+    } else {
+        // console.log(Tone.context.state);
+        context4.resume();
+        if(context4.transport.state === "stopped") {context4.transport.start();}
+        player3.start(0, p3loopStart);
+        context4.transport.cancel(0);
+
+        schedulePattern3();
+
+        document.querySelector('#start3').className = 'ui button active';
+        document.querySelector('#stop3').className = 'ui button';    
+
+
+    }
+
+    colorAccentHue3 = Math.floor(Math.random() * 250) + 1;
+    sVal3 = Math.floor(Math.random() * 100) + 1;
+    p3stopped = false;
+    console.log(p3stopped);
 
 
 });
 
 
 document.querySelector('#start3').addEventListener('touchstart',  (time)=> {
-    console.log(Tone.context.state);
-    if( Tone.context.state === 'suspended') {
-        console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){
-            Tone.Transport.start();
+    console.log(context4.state);
+    if( context4.state === 'suspended') {
+        console.log(context4.state);
+        context4.resume();
+        if(context4.transport.state === "stopped"){
+            context4.transport.start();
         }
 
         player3.start(0, p3loopStart);
+        context4.transport.cancel(0);
+
+        schedulePattern3();
 
         // schedulePattern2();
 
@@ -351,12 +550,15 @@ document.querySelector('#start3').addEventListener('touchstart',  (time)=> {
 
     } else {
         console.log(Tone.context.state);
-        Tone.context.resume();
-        if(Tone.Transport.state === "stopped"){
-            Tone.Transport.start();
+        context4.resume();
+        if(context4.transport.state === "stopped"){
+            context4.transport.start();
         }
 
-        player3.start(0, p2loopStart);
+        player3.start(0, p3loopStart);
+        context4.transport.cancel(0);
+
+        schedulePattern3();
 
         // schedulePattern2();
         // player.start(0, p1loopStart);
@@ -375,6 +577,81 @@ document.querySelector('#start3').addEventListener('touchstart',  (time)=> {
 
 });
 
+document.querySelector('#start4').addEventListener('click',  (time)=> {
+    console.log(context4.state);
+    if( context5.state === 'suspended') {
+        // console.log(Tone.context.state);
+        context5.resume();
+        if(context5.transport.state === "stopped") {context5.transport.start();}
+        player4.start(0, p4loopStart);
+        context5.transport.cancel(0);
+
+        schedulePattern4();
+
+
+        document.querySelector('#start4').className = 'ui button active';
+        document.querySelector('#stop4').className = 'ui button';
+
+    } else {
+        // console.log(Tone.context.state);
+        context5.resume();
+        if(context5.transport.state === "stopped") {context5.transport.start();}
+        player4.start(0, p4loopStart);
+        context5.transport.cancel(0);
+
+        schedulePattern4();
+
+        document.querySelector('#start4').className = 'ui button active';
+        document.querySelector('#stop4').className = 'ui button';    
+
+
+    }
+
+    colorAccentHue4 = Math.floor(Math.random() * 250) + 1;
+    sVal4 = Math.floor(Math.random() * 100) + 1;
+    p4stopped = false;
+    // console.log(p3stopped);
+
+
+});
+
+document.querySelector('#start4').addEventListener('click',  (time)=> {
+    console.log(context5.state);
+    if( context5.state === 'suspended') {
+        console.log(context5.state);
+        context5.resume();
+        if(context5.transport.state === "stopped") {context5.transport.start();}
+        player4.start(0, p4loopStart);
+        context5.transport.cancel(0);
+
+       
+        schedulePattern4();
+
+        document.querySelector('#start4').className = 'ui button active';
+        document.querySelector('#stop4').className = 'ui button';
+
+    } else {
+        console.log(context5.state);
+        context5.resume();
+        if(context5.transport.state === "stopped") {context5.transport.start();}
+        player4.start(0, p4loopStart);
+        context5.transport.cancel(0);
+
+        schedulePattern4();
+
+        document.querySelector('#start4').className = 'ui button active';
+        document.querySelector('#stop4').className = 'ui button';    
+
+
+    }
+
+    colorAccentHue4 = Math.floor(Math.random() * 250) + 1;
+    sVal4 = Math.floor(Math.random() * 100) + 1;
+    p4stopped = false;
+    // console.log(p3stopped);
+
+
+});
 
 // document.querySelector('#start2').addEventListener('click', ()=> {
 //     colorAccentHue2 = Math.floor(Math.random() * 250) + 1;
@@ -473,6 +750,8 @@ document.querySelector('#reverse4').addEventListener('click', ()=> {
 document.querySelector('#stop').addEventListener('click', ()=> {
     p1stopped = true;
     player.stop();
+    context2.transport.cancel(0);
+
     document.querySelector('#stop').className = 'ui button active';
     document.querySelector('#start').className = 'ui button';
 
@@ -483,7 +762,9 @@ document.querySelector('#stop').addEventListener('click', ()=> {
 document.querySelector('#stop2').addEventListener('click', ()=> {
     p2stopped = true;
 
-    player2.stop()
+    player2.stop();
+    context3.transport.cancel(0);
+
     document.querySelector('#stop2').className = 'ui button active';
     document.querySelector('#start2').className = 'ui button';
 });
@@ -492,7 +773,9 @@ document.querySelector('#stop2').addEventListener('click', ()=> {
 document.querySelector('#stop3').addEventListener('click', ()=> {
     p3stopped = true;
 
-    player3.stop()
+    player3.stop();
+    context3.transport.cancel(0);
+
     document.querySelector('#stop3').className = 'ui button active';
     document.querySelector('#start3').className = 'ui button';
 });
@@ -501,6 +784,8 @@ document.querySelector('#stop4').addEventListener('click', ()=> {
     p3stopped = true;
 
     player4.stop();
+    context4.transport.cancel(0);
+
     document.querySelector('#stop4').className = 'ui button active';
     document.querySelector('#start4').className = 'ui button';
 });
@@ -571,12 +856,20 @@ document.querySelector('#mute4').addEventListener('click', ()=> {
 
 document.querySelector('#muteAll').addEventListener('click', ()=> {
     if(muteAll){
-        Tone.Destination.mute = false;
+        context2.destination.mute = false;
+        context3.destination.mute = false;
+        context4.destination.mute = false;
+        context5.destination.mute = false;
+
         muteAll = false;
         document.querySelector('#muteAll').className = 'mini ui black basic button';
 
     } else {
-        Tone.Destination.mute = true;
+        context2.destination.mute = true;
+        context3.destination.mute = true;
+        context4.destination.mute = true;
+        context5.destination.mute = true;
+                
         muteAll = true;
         document.querySelector('#muteAll').className = 'mini ui red basic button';
 
@@ -668,7 +961,7 @@ document.querySelector('#reloop2').addEventListener('click', ()=> {
   p2stopped = false;
 //   console.log(p2loopStart);
   player2.stop();
-  player2.start(0, p1loopStart);
+  player2.start(0, p2loopStart);
 //   player2.loopStart = p2loopStart;
 //   player2.loopEnd = p2loopStart + 3;
 }, false)
@@ -743,46 +1036,48 @@ document.querySelector('#p4Volume').addEventListener('input', (e)=> {
 document.querySelector('#loopLength1').addEventListener('input', (e)=> {
     let val = e.currentTarget.value;
     document.querySelector('#loopLength1val').value = val;
-    Tone.Transport.cancel(0);
+    context2.transport.cancel(0);
     p1loopLength = val;
     console.log(p1loopLength);
     schedulePattern1();
-    schedulePattern2();
-    schedulePattern3();
-    schedulePattern4();
+    // schedulePattern2();
+    // schedulePattern3();
+    // schedulePattern4();
   }, false)
 
   document.querySelector('#loopLength2').addEventListener('input', (e)=> {
     let val = e.currentTarget.value;
     document.querySelector('#loopLength2val').value = val;
-    Tone.Transport.cancel(0);
+    context3.transport.cancel(0);
     p2loopLength = val;
     console.log(p2loopLength);
-    schedulePattern1();
+    // schedulePattern1();
     schedulePattern2();
-    schedulePattern3();
-    schedulePattern4();
+    // schedulePattern3();
+    // schedulePattern4();
   }, false)
 
   document.querySelector('#loopLength3').addEventListener('input', (e)=> {
     let val = e.currentTarget.value;
     document.querySelector('#loopLength3val').value = val;
-    Tone.Transport.cancel(0);
+    context4.transport.cancel(0);
     p3loopLength = val;
-    schedulePattern1();
-    schedulePattern2();
+    console.log(p3loopLength);
+    // schedulePattern1();
+    // schedulePattern2();
     schedulePattern3();
-    schedulePattern4();
+    // schedulePattern4();
   }, false)
 
   document.querySelector('#loopLength4').addEventListener('input', (e)=> {
     let val = e.currentTarget.value;
     document.querySelector('#loopLength4val').value = val;
-    Tone.Transport.cancel(0);
+    context5.transport.cancel(0);
     p4loopLength = val;
-    schedulePattern1();
-    schedulePattern2();
-    schedulePattern3();
+    console.log(p4loopLength);
+    // schedulePattern1();
+    // schedulePattern2();
+    // schedulePattern3();
     schedulePattern4();
   }, false)
 
@@ -794,18 +1089,18 @@ var lVal3 = 20;
 var lVal4 = 20;
 
 
-Tone.Transport.scheduleRepeat((time) => {
-	// use the callback time to schedule events
-    if(p1stopped == false){
-        player.stop();
-        player.start(0, p1loopStart);
-        console.log('restart p1loopStart');
-        console.log(p1loopLength);
+// context2.transport.scheduleRepeat((time) => {
+// 	// use the callback time to schedule events
+//     if(p1stopped == false){
+//         player.stop();
+//         player.start(0, p1loopStart);
+//         console.log('restart p1loopStart');
+//         console.log(p1loopLength);
 
-    }
-}, p1loopLength);
+//     }
+// }, p1loopLength);
 
-Tone.Transport.scheduleRepeat((time) => {
+context3.transport.scheduleRepeat((time) => {
 	// use the callback time to schedule events
     // player.restart(time);
     if(p2stopped == false){
@@ -817,7 +1112,7 @@ Tone.Transport.scheduleRepeat((time) => {
     }
 }, p2loopLength);
 
-Tone.Transport.scheduleRepeat((time) => {
+context4.transport.scheduleRepeat((time) => {
 	// use the callback time to schedule events
     // player.restart(time);
     if(p3stopped == false){
@@ -829,7 +1124,7 @@ Tone.Transport.scheduleRepeat((time) => {
     }
 }, p3loopLength);
 
-Tone.Transport.scheduleRepeat((time) => {
+context5.transport.scheduleRepeat((time) => {
 	// use the callback time to schedule events
     // player.restart(time);
     if(p4stopped == false){
@@ -844,12 +1139,12 @@ Tone.Transport.scheduleRepeat((time) => {
 
 
 let schedulePattern1 = () => {
-    Tone.Transport.scheduleRepeat((time) => {
+    context2.transport.scheduleRepeat((time) => {
         // use the callback time to schedule events
         // player.restart(time);
         // player.unsync().stop().sync().start(p1loopStart, 0)
 
-        if(p1stopped == false){
+        if(p1stopped === false){
             player.stop();
             player.start(0, p1loopStart);
             console.log('restart p1loopStart');
@@ -860,7 +1155,7 @@ let schedulePattern1 = () => {
 }
 
 let schedulePattern2 = () => {
-    Tone.context.transport.scheduleRepeat((time) => {
+    context3.transport.scheduleRepeat((time) => {
         // use the callback time to schedule events
         // player.restart(time);
         // player.unsync().stop().sync().start(p1loopStart, 0)
@@ -876,14 +1171,14 @@ let schedulePattern2 = () => {
 }
 
 let schedulePattern3 = () => {
-    Tone.context.transport.scheduleRepeat((time) => {
+    context4.transport.scheduleRepeat((time) => {
         // use the callback time to schedule events
         // player.restart(time);
         // player.unsync().stop().sync().start(p1loopStart, 0)
 
         if(p1stopped == false){
             player3.stop();
-            player3.start(0, p2loopStart);
+            player3.start(0, p3loopStart);
             console.log('restart p3loopStart');
             console.log(p3loopLength);
     
@@ -892,14 +1187,14 @@ let schedulePattern3 = () => {
 }
 
 let schedulePattern4 = () => {
-    Tone.context.transport.scheduleRepeat((time) => {
+    context5.transport.scheduleRepeat((time) => {
         // use the callback time to schedule events
         // player.restart(time);
         // player.unsync().stop().sync().start(p1loopStart, 0)
 
         if(p1stopped == false){
             player4.stop();
-            player4.start(0, p2loopStart);
+            player4.start(0, p4loopStart);
             console.log('restart p4loopStart');
             console.log(p4loopLength);
     
@@ -907,4 +1202,4 @@ let schedulePattern4 = () => {
     }, p4loopLength);
 }
 
-console.log(Tone.Transport);
+console.log(context2.destination.mute);
